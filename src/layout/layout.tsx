@@ -12,7 +12,6 @@ import React, { useContext, useEffect, useRef } from "react";
 import AppFooter from "./AppFooter";
 import AppSidebar from "./AppSidebar";
 import AppTopbar from "./AppTopbar";
-import AppConfig from "./AppConfig";
 import { LayoutContext } from "./context/layoutcontext";
 import PrimeReact from "primereact/api";
 import { ChildContainerProps, LayoutState, AppTopBarRef } from "../types/types";
@@ -156,7 +155,6 @@ const Layout = ({ children }: ChildContainerProps) => {
           <div className="layout-main">{children}</div>
           <AppFooter />
         </div>
-        <AppConfig />
         <div className="layout-mask"></div>
       </div>
     </React.Fragment>
