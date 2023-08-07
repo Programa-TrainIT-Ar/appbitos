@@ -9,7 +9,6 @@ import { Button } from "primereact/button";
 import { Password } from "primereact/password";
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils"; // Utilidad para unir nombre de clases 
-import { Messages } from "primereact/messages";
 import { Toast } from "primereact/toast";
 
 interface User {
@@ -23,24 +22,39 @@ interface User {
 }
 
 const LoginPage = () => {
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [checked, setChecked] = useState(false);
   const toast = useRef<Toast>(null)
 
   const router = useRouter(); // Ruteo para next JS
 
+  const validateEmail = (email: string) => {
+    return email.match(
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+  };
+
   async function handleLogin() {
 
+    const userNotFoundMessage = "Usuario no encontrado"
+    const wrongEmailMessage = "Ingrese un mail correcto"
+    const successMessage = "Bienvenido"
+    const wrongPasswordMessage = "Contraseña Incorrecta"
+
+
+    if (!validateEmail(email)) {
+      toast.current?.show({
+        summary: wrongEmailMessage,
+        life: 3000,
+        severity: 'error'
+      })
+      return false;
+    }
 
     const res = await fetch('http://www.localhost:3004/users')
     const data = await res.json();
-
     const user = data.find((o: User) => o.username === email)
-
-    const userNotFoundMessage = "Usuario no encontrado"
-    const successMessage = "Bienvenido"
-    const wrongPassword = "Contraseña Incorrecta"
 
 
     if (!user) {
@@ -59,11 +73,11 @@ const LoginPage = () => {
         router.push('/')
       } else {
         toast.current?.show({
-          summary: wrongPassword,
+          summary: wrongPasswordMessage,
           life: 3000,
           severity: 'success'
         })
- 
+
       }
 
 
@@ -133,9 +147,10 @@ const LoginPage = () => {
               </label>
               <InputText
                 id="email1"
-                type="text"
+                type="email"
                 placeholder="Email address"
                 onChange={(e) => setEmail(e.target.value)}
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                 className="w-full md:w-30rem mb-5"
                 style={{ padding: "1rem" }}
               />
