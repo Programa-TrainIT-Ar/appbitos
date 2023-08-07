@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"; // ??? 
-import { useRouter } from "next/navigation";
-import React, { useContext, useState } from "react";
+import { redirect, useRouter } from "next/navigation";
+import React, { useContext, useState, useRef } from "react";
 
 // Botones
 import { Checkbox } from "primereact/checkbox";
@@ -9,22 +9,73 @@ import { Button } from "primereact/button";
 import { Password } from "primereact/password";
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils"; // Utilidad para unir nombre de clases 
+import { Messages } from "primereact/messages";
+import { Toast } from "primereact/toast";
+
+interface User {
+  username: string,
+  password: string
+  email: string,
+  avatar: string,
+  birthdate: Date,
+  registeredAt: Date
+
+}
 
 const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [checked, setChecked] = useState(false);
+  const toast = useRef<Toast>(null)
 
   const router = useRouter(); // Ruteo para next JS
 
   async function handleLogin() {
-    console.log(email, password)
-    const res = await fetch('http://www.localhost:8080/user')
-    const data =await res.json();
-    console.log(data)
 
 
-    
+    const res = await fetch('http://www.localhost:3004/users')
+    const data = await res.json();
+
+    const user = data.find((o: User) => o.username === email)
+
+    const userNotFoundMessage = "Usuario no encontrado"
+    const successMessage = "Bienvenido"
+    const wrongPassword = "Contraseña Incorrecta"
+
+
+    if (!user) {
+      toast.current?.show({
+        summary: userNotFoundMessage,
+        life: 3000,
+        severity: 'error'
+      })
+    } else {
+      if (user.password === password) {
+        toast.current?.show({
+          summary: successMessage,
+          life: 3000,
+          severity: 'success'
+        })
+        router.push('/')
+      } else {
+        toast.current?.show({
+          summary: wrongPassword,
+          life: 3000,
+          severity: 'success'
+        })
+ 
+      }
+
+
+    }
+
+
+
+
+
+
+
+
   }
 
 
@@ -35,7 +86,7 @@ const LoginPage = () => {
 
   return (
     <div className={containerClassName}>
-
+      <Toast ref={toast} />
       {/* Icono superior */}
       <div className="flex flex-column align-items-center justify-content-center">
         <img
@@ -143,6 +194,7 @@ const LoginPage = () => {
         </div>
       </div>
     </div>
+
   );
 };
 
