@@ -8,6 +8,7 @@
     "start": "next start",
     "format": "prettier --write \"{components,app,service,api-generator}/**/*.{js,ts,tsx,d.ts}\"",
     "lint": "next lint",
+    "mocks": "dyson mocks/ 8080",
     "stubs": "json-server --watch .\\stubs\\index.js --port 3004 --delay 1000"
   },
   "dependencies": {
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
+    "dyson": "^4.1.0",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.6",
     "json-server": "^0.17.3",
