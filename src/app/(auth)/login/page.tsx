@@ -35,20 +35,18 @@ const LoginPage = () => {
     );
   };
 
+  const showToast = (summary: string, life: number, severity: 'success' | 'error' | 'warn' | 'info' | undefined) => {
+    toast.current?.show({
+      summary: summary,
+      life: life,
+      severity: severity
+    })
+  }
+
   async function handleLogin() {
 
-    const userNotFoundMessage = "Usuario no encontrado"
-    const wrongEmailMessage = "Ingrese un mail correcto"
-    const successMessage = "Bienvenido"
-    const wrongPasswordMessage = "Contraseña Incorrecta"
-
-
     if (!validateEmail(email)) {
-      toast.current?.show({
-        summary: wrongEmailMessage,
-        life: 3000,
-        severity: 'error'
-      })
+      showToast('Ingrese un mail correcto.', 3000, 'error')
       return false;
     }
 
@@ -58,29 +56,14 @@ const LoginPage = () => {
 
 
     if (!user) {
-      toast.current?.show({
-        summary: userNotFoundMessage,
-        life: 3000,
-        severity: 'error'
-      })
+      showToast('Usuario no encontrado', 3000, 'error')
     } else {
       if (user.password === password) {
-        toast.current?.show({
-          summary: successMessage,
-          life: 3000,
-          severity: 'success'
-        })
+        showToast('Bienvenido', 3000, 'success')
         router.push('/')
       } else {
-        toast.current?.show({
-          summary: wrongPasswordMessage,
-          life: 3000,
-          severity: 'error'
-        })
-
+        showToast('Contraseña incorrecta', 3000, 'error')
       }
-
-
     }
 
 
