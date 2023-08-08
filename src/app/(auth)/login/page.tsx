@@ -54,7 +54,7 @@ const LoginPage = () => {
 
     const res = await fetch('http://www.localhost:3004/users')
     const data = await res.json();
-    const user = data.find((o: User) => o.username === email)
+    const user = data.find((o: User) => o.email === email)
 
 
     if (!user) {
@@ -75,7 +75,7 @@ const LoginPage = () => {
         toast.current?.show({
           summary: wrongPasswordMessage,
           life: 3000,
-          severity: 'success'
+          severity: 'error'
         })
 
       }
