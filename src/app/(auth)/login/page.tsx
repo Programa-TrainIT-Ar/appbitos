@@ -149,9 +149,9 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                toggleMask
                 className="w-full mb-5"
                 inputClassName="w-full p-3 md:w-30rem"
+                feedback={false}
               ></Password>
 
               <Button
