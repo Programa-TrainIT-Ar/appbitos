@@ -10,16 +10,7 @@ import { Password } from "primereact/password";
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils"; 
 import { Toast } from "primereact/toast";
-
-interface User {
-  username: string,
-  password: string
-  email: string,
-  avatar: string,
-  birthdate: Date,
-  registeredAt: Date
-
-}
+import { User } from "../../../types/types";
 
 const LoginPage = () => {
   const [password, setPassword] = useState<string>("");

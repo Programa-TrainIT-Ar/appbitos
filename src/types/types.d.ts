@@ -35,6 +35,17 @@ type ChildContainerProps = {
     children: ReactNode;
 };
 
+export interface User {
+  username: string,
+  password: string
+  email: string,
+  avatar: string,
+  birthdate: Date,
+  registeredAt: Date
+
+}
+
+
 export type {
     Page,
     AppBreadcrumbProps,
