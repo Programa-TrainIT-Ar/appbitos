@@ -8,7 +8,6 @@ import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { Password } from "primereact/password";
 import { InputText } from "primereact/inputtext";
-import { classNames } from "primereact/utils"; 
 import { Toast } from "primereact/toast";
 import { User } from "../../../types/types";
 
@@ -56,12 +55,10 @@ const LoginPage = () => {
       }
     }
   }
-  const containerClassName = classNames(
-    "surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden",
-  );
 
   return (
-    <div className={containerClassName}>
+    <div className="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+      <Toast ref={toast} />
       <div className="flex flex-column align-items-center justify-content-center">
         <img
           src={`/layout/images/traintItIcon.png`}
