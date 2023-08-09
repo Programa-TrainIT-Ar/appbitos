@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"; // ??? 
+"use client"; 
 import { redirect, useRouter } from "next/navigation";
 import React, { useContext, useState, useRef } from "react";
 
@@ -8,7 +8,7 @@ import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { Password } from "primereact/password";
 import { InputText } from "primereact/inputtext";
-import { classNames } from "primereact/utils"; // Utilidad para unir nombre de clases 
+import { classNames } from "primereact/utils"; 
 import { Toast } from "primereact/toast";
 
 interface User {
@@ -27,7 +27,7 @@ const LoginPage = () => {
   const [checked, setChecked] = useState(false);
   const toast = useRef<Toast>(null)
 
-  const router = useRouter(); // Ruteo para next JS
+  const router = useRouter(); 
 
   const validateEmail = (email: string) => {
     return email.match(
