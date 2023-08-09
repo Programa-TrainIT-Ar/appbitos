@@ -1,9 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"; 
-import { redirect, useRouter } from "next/navigation";
-import React, { useContext, useState, useRef } from "react";
+import {  useRouter } from "next/navigation";
+import React, {  useState, useRef } from "react";
 
-// Botones
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { Password } from "primereact/password";
