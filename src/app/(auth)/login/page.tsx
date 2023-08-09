@@ -38,13 +38,12 @@ const LoginPage = () => {
 
     if (!validateEmail(email)) {
       showToast('Ingrese un mail correcto.', 3000, 'error')
-      return false;
+      return 
     }
 
     const res = await fetch('http://www.localhost:3004/users')
     const data = await res.json();
     const user = data.find((o: User) => o.email === email)
-
 
     if (!user) {
       showToast('Usuario no encontrado', 3000, 'error')
@@ -56,26 +55,13 @@ const LoginPage = () => {
         showToast('Contraseña incorrecta', 3000, 'error')
       }
     }
-
-
-
-
-
-
-
-
   }
-
-
   const containerClassName = classNames(
     "surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden",
-
   );
 
   return (
     <div className={containerClassName}>
-      <Toast ref={toast} />
-      {/* Icono superior */}
       <div className="flex flex-column align-items-center justify-content-center">
         <img
           src={`/layout/images/traintItIcon.png`}
@@ -90,7 +76,6 @@ const LoginPage = () => {
               "linear-gradient(180deg, #D33DB1 5%, var(--primary-color) 40%)",
           }}
         >
-
           <div
             className="w-full surface-card py-8 px-5 sm:px-8"
             style={{ borderRadius: "53px" }}
@@ -174,10 +159,7 @@ const LoginPage = () => {
                 >
                   Registrarse
                 </a>
-
-
               </div>
-
             </div>
           </div>
         </div>
