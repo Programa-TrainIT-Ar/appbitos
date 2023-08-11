@@ -52,20 +52,6 @@ const LoginPage = () => {
     } catch (error) {
        showToast('Ha ocurrido un error', 3000, 'error')
     }
-
-    // const users: User[] = await fetchData('GET', 'http://localhost:3004/users');
-    // const foundUser  = users.find((el : User)  => el.email === email)
-
-    // if (!foundUser) {
-    //   showToast('Usuario no encontrado', 3000, 'error')
-    // } else {
-    //   if (foundUser.password === password) {
-    //     showToast('Bienvenido', 3000, 'success')
-    //     router.push('/')
-    //   } else {
-    //     showToast('Contraseña incorrecta', 3000, 'error')
-    //   }
-    // }
   }
 
   return (
