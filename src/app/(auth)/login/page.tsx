@@ -38,20 +38,34 @@ const LoginPage = () => {
       showToast('Ingrese un mail correcto.', 3000, 'error')
       return 
     }
+    if (password === '' || password.length <= 4) {
+      showToast('Ingrese una contraseña', 3000, 'error')
+      return 
+    }
 
-    const users: any = await fetchData('GET', 'http://localhost:3004/users');
-    const foundUser = users.find((el : User)  => el.email === email)
-
-    if (!foundUser) {
-      showToast('Usuario no encontrado', 3000, 'error')
-    } else {
-      if (foundUser.password === password) {
+    try {
+      const response = await fetchData('POST', 'http://localhost:3004/users', {email,password})
+      if(response?.status === 201 || response.id) {
         showToast('Bienvenido', 3000, 'success')
         router.push('/')
-      } else {
-        showToast('Contraseña incorrecta', 3000, 'error')
       }
+    } catch (error) {
+       showToast('Ha ocurrido un error', 3000, 'error')
     }
+
+    // const users: User[] = await fetchData('GET', 'http://localhost:3004/users');
+    // const foundUser  = users.find((el : User)  => el.email === email)
+
+    // if (!foundUser) {
+    //   showToast('Usuario no encontrado', 3000, 'error')
+    // } else {
+    //   if (foundUser.password === password) {
+    //     showToast('Bienvenido', 3000, 'success')
+    //     router.push('/')
+    //   } else {
+    //     showToast('Contraseña incorrecta', 3000, 'error')
+    //   }
+    // }
   }
 
   return (
