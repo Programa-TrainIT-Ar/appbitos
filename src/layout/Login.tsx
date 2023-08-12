@@ -45,10 +45,8 @@ const Login: NextPage = () => {
     <div className={containerClassName}>
       <div className="flex flex-column align-items-center justify-content-center">
         <img
-          src={`/layout/images/logo-${
-            layoutConfig.colorScheme === "light" ? "dark" : "white"
-          }.svg`}
-          alt="Sakai logo"
+          src={`/layout/images/logo_IT.png`}
+          alt="TrainIT_logo"
           className="mb-5 w-6rem flex-shrink-0"
         />
         <div
@@ -71,9 +69,9 @@ const Login: NextPage = () => {
                 className="mb-3"
               />
               <div className="text-900 text-3xl font-medium mb-3">
-                Welcome!
+                Bienvenido!
               </div>
-              <span className="text-600 font-medium">Sign in to continue</span>
+              <span className="text-600 font-medium">Logueate para continuar</span>
             </div>
 
             <div>
@@ -86,7 +84,7 @@ const Login: NextPage = () => {
               <InputText
                 id="email1"
                 type="text"
-                placeholder="Email address"
+                placeholder="Email"
                 className="w-full md:w-30rem mb-5"
                 style={{ padding: "1rem" }}
               />
@@ -95,13 +93,13 @@ const Login: NextPage = () => {
                 htmlFor="password1"
                 className="block text-900 font-medium text-xl mb-2"
               >
-                Password
+                Contraseña
               </label>
               <Password
                 inputId="password1"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
+                placeholder="Contraseña"
                 toggleMask
                 className="w-full mb-5"
                 inputClassName="w-full p-3 md:w-30rem"
