@@ -8,7 +8,7 @@
     "start": "next start",
     "format": "prettier --write \"{components,app,service,api-generator}/**/*.{js,ts,tsx,d.ts}\"",
     "lint": "next lint",
-    "stubs": "json-server --watch .\\stubs\\index.js --port 3004 --delay 1000"
+    "stubs": "json-server --watch ./stubs/index.js --port 3004 --delay 1000"
   },
   "dependencies": {
     "@types/node": "20.3.1",
