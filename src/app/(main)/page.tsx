@@ -1,8 +1,21 @@
-"use client";
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
+import { getMedals } from "../api/medals";
+import { Medal } from "../../types/medals";
 
 
-const Dashboard = () => {
+const MedalsPage = () => {
+
+  const [medals, setMedals] = useState<Medal[]>([]);
+
+
+  useEffect(() => {
+
+    getMedals().then((data : Medal[]) => setMedals(data));
+
+  },[]);
+
+
     return (
         <div className="grid">
 
@@ -10,4 +23,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default MedalsPage;

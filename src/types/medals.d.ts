@@ -1,4 +1,4 @@
-export type Medal = {
+export interface Medal  {
   id: string,
   name: string,
   requirements: string,
