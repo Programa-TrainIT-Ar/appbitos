@@ -1,4 +1,3 @@
 {
-  "/api/users" : "users", 
-  "/api/medals" : "medals"
+  "/api/medals" : "/medals"
 }
