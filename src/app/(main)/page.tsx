@@ -1,19 +1,8 @@
 "use client"
-import React, { useEffect, useState } from "react";
-import { getMedals } from "../api/medals";
-import { Medal } from "../../types/medals";
+import React from "react";
 
 
-const MedalsPage = () => {
-
-  const [medals, setMedals] = useState<Medal[]>([]);
-
-
-  useEffect(() => {
-
-    getMedals().then((data : Medal[]) => setMedals(data));
-
-  },[]);
+const Main = () => {
 
 
     return (
@@ -23,4 +12,4 @@ const MedalsPage = () => {
     );
 };
 
-export default MedalsPage;
+export default Main;

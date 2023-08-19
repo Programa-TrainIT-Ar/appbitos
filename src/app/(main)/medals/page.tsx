@@ -1,13 +1,36 @@
-"use client";
-import React from "react";
+"use client"
+import React, {  useEffect, useState } from "react";
+import { getMedals } from "../../api/medals";
+import { Medal } from "../../../types/medals";
+
+const MedalsPage = () => {
+
+  const [medals, setMedals] = useState<Medal[]>([]);
 
 
-const Medals = () => {
+  useEffect(() => {
+
+    getMedals().then((data : Medal[]) => setMedals(data));
+    
+
+  },[]);
+
+
     return (
-        <div className="grid">
-Hola mundo
+
+        <div >
+
+      {medals.map((el : Medal) => {
+
+        return <div className="px-8 flex flex-column items-center">
+          Nombre : {el.name}
         </div>
+
+      })}
+
+        </div>
+
     );
 };
 
-export default Medals;
+export default MedalsPage;
