@@ -6,7 +6,7 @@ const Main = () => {
 
 
     return (
-        <div className="grid">
+        <div className="">
 
         </div>
     );

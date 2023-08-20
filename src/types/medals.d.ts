@@ -3,7 +3,8 @@ export interface Medal  {
   name: string,
   requirements: string,
   image: string,
-  dificulty: number
+  dificulty: number,
+  obtainedDate: date
 }
 
 
