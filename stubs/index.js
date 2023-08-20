@@ -6,6 +6,6 @@ module.exports = () => {
 
   return {
     users,
-    medals
+    medals,
   }
 }

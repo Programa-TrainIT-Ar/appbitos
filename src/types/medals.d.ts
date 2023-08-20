@@ -4,7 +4,7 @@ export interface Medal  {
   requirements: string,
   image: string,
   dificulty: number,
-  obtainedDate: date
+  obtained: boolean
 }
 
 

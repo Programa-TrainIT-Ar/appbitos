@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { getMedals } from "../../api/medals";
 import { Medal } from "../../../types/medals";
-import { Carousel } from "primereact/carousel";
 
 
 const MedalsPage = () => {
@@ -13,6 +12,7 @@ const MedalsPage = () => {
   useEffect(() => {
 
     getMedals().then((data: Medal[]) => setMedals(data));
+    console.log(medals)
 
 
   }, []);
@@ -20,91 +20,49 @@ const MedalsPage = () => {
 
   return (
 
-    <div className="flex  h-screen" >
+    <div className="flex h-screen" >
 
 <div className="flex flex-column align-items-center">
 
-        <div className=" p-4  flex justify-content-center flex-column align-items-center">
-          <img className="w-12rem m-1" src="https://www.svgrepo.com/show/178828/medal-medal.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-    
+   
+{
+           medals
+          .filter((el : Medal) => el.obtained)
+          .slice(0, 3)
+          .map((el : Medal, index) => (
+    <div key={index}  className=" p-4  flex justify-content-center flex-column align-items-center">
+      <img className="w-10rem m-1" src={el.image} ></img>
+      <p>{el.name}</p>
+    </div>
+  ))
+}
+   
 
 
 
       </div>
       <div className="md:ml-7 grid overflow-y-scroll ">
+   
+{
+           medals
+          .filter((el : Medal) => el.obtained === false)
+          .map((el : Medal, index) => (
+        <div key={index} className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
+          <img className="w-8 m-2" src="https://www.svgrepo.com/show/465475/lock.svg" ></img>
+          <p>{el.name}</p>
+        </div>
+
+  ))
+}
+   
 
 
+
         <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
+          <img className="w-8 m-2" src="https://www.svgrepo.com/show/465475/lock.svg" ></img>
           <p>Lorem ipsum</p>
         </div>
 
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
-        <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-          <img className="w-8 m-2" src="https://www.svgrepo.com/show/7758/medal-variant-with-wreath-and-symbol.svg" ></img>
-          <p>Lorem ipsum</p>
-        </div>
       </div>
     </div>
 

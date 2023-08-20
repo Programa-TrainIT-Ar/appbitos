@@ -6,7 +6,7 @@ export async function getMedals() : Promise<Medal[]> {
   const BASE_URL = 'http://localhost:3004'
 
 
-  return await fetch(`${BASE_URL}/api/medals`)
+  return await fetch(`${BASE_URL}/medals`)
   .then(res => res.json())
 
 
