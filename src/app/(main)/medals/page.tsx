@@ -20,16 +20,20 @@ const MedalsPage = () => {
 
   return (
 
-    <div className="flex " >
+    <div className="flex  h-screen" >
 
+<div className="flex flex-column align-items-center">
 
         <div className=" p-4  flex justify-content-center flex-column align-items-center">
           <img className="w-12rem m-1" src="https://www.svgrepo.com/show/178828/medal-medal.svg" ></img>
           <p>Lorem ipsum</p>
         </div>
+    
 
 
-      <div className="md:ml-7 grid h-30rem  overflow-y-auto ">
+
+      </div>
+      <div className="md:ml-7 grid overflow-y-scroll ">
 
 
         <div className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
