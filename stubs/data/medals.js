@@ -7,9 +7,13 @@ function createRandomImage() {
     "https://www.svgrepo.com/show/180473/medal-medal.svg",
     "https://www.svgrepo.com/show/180485/chevron-military.svg",
     "https://www.svgrepo.com/show/180482/target-target.svg",
+    "https://www.svgrepo.com/show/180494/signal-connection.svg",
+    "https://www.svgrepo.com/show/180523/diploma-interface.svg",
+    "https://www.svgrepo.com/show/180522/chevron-military.svg"
+
   ]
 
-  return randomMedals[faker.number.int({ min: 0, max: 3 })]
+  return randomMedals[faker.number.int({ min: 0, max: 6 })]
 
 }
 
