@@ -1,27 +1,23 @@
 "use client"
 
-
 import React, { useEffect, useState } from "react";
 import { getMedals } from "../../api/medals";
 import { Medal } from "../../../types/medals";
 import { Dialog } from "primereact/dialog";
 import Image from "next/image";
 
-
 const MedalsPage = () => {
 
   const [medals, setMedals] = useState<Medal[]>([]);
   const [displayModal, setDisplayModal] = useState(false)
   const [currentMedal, setCurrentMedal] = useState<Medal>({
-  id:"asdasd2323",
-  name: "Test Medal",
-  requirements: "Lorem ipsum",
-  image: "https://www.svgrepo.com/show/465475/lock.svg",
-  dificulty: 2,
-  obtained: false
+    id: "fqtj34l",
+    name: "Test Medal",
+    requirements: "Lorem ipsum",
+    image: "https://www.svgrepo.com/show/465475/lock.svg",
+    dificulty: 2,
+    obtained: false
   })
-
-
 
   useEffect(() => {
     getMedals().then((data: Medal[]) => setMedals(data));
@@ -70,7 +66,6 @@ const MedalsPage = () => {
             ))
         }
 
-
         <Dialog
           header={currentMedal.name}
           visible={displayModal}
@@ -80,17 +75,15 @@ const MedalsPage = () => {
           keepInViewport={false}
           className="w-24rem"
           dismissableMask={true}
-          onHide={() => setDisplayModal(false)}>
-
+          onHide={() => setDisplayModal(false)}
+        >
 
           <div className="flex flex-column align-items-center  ">
-          <Image className="my-4"  src={currentMedal.image} alt="Current Medal Info" width={100} height={100}/>
-          <p className="m-0">{currentMedal.requirements}</p>
+            <Image className="my-4" src={currentMedal.image} alt="Current Medal Info" width={100} height={100} />
+            <p className="m-0">{currentMedal.requirements}</p>
           </div>
 
-
         </Dialog>
-
       </div>
     </div>
   );
