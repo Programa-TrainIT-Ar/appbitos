@@ -18,7 +18,7 @@ function createRandomMedal() {
   return {
     id: faker.string.uuid(),
     name: faker.lorem.words(2),
-    requirements: faker.lorem.words(5),
+    requirements: faker.lorem.words(15),
     image: createRandomImage(),
     dificulty: faker.number.int({ min: 1, max: 5 }),
     obtained: faker.datatype.boolean()
