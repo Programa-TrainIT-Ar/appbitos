@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { getMedals } from "../../api/medals";
 import { Medal } from "../../../types/medals";
+import Image from "next/image";
 
 
 const MedalsPage = () => {
@@ -18,14 +19,15 @@ const MedalsPage = () => {
   return (
 
     <div className="flex h-screen" >
-      <div className="flex flex-column align-items-center">
+      <div className="flex flex-column  align-items-center">
+        <h2 className="ml-5">Medallas obtenidas</h2>
         {
           medals
             .filter((el: Medal) => el.obtained)
             .slice(0, 3)
             .map((el: Medal, index) => (
               <div key={index} className=" p-4  flex justify-content-center flex-column align-items-center">
-                <img className="w-10rem m-1" src={el.image} ></img>
+                <Image loading="lazy"  src={el.image} alt="Obtained Medal Picture" width={150} height={150} className="w-10rem m-1" />
                 <p>{el.name}</p>
               </div>
             ))
@@ -36,11 +38,10 @@ const MedalsPage = () => {
           medals
             .filter((el: Medal) => el.obtained === false)
             .map((el: Medal, index) => (
-              <div key={index} className="border-round-2xl sm:col-2 md:col-3 p-4  my-2  flex justify-content-center flex-column align-items-center">
-                <img className="w-8 m-2" src="https://www.svgrepo.com/show/465475/lock.svg" ></img>
+              <div key={index} className="border-round-2xl sm:col-2 md:col-3 p-2  my-1  flex justify-content-center flex-column align-items-center">
+                <Image src="https://www.svgrepo.com/show/465475/lock.svg" alt="Medal Picture" width={60} height={60} className="w-10rem m-1" />
                 <p>{el.name}</p>
               </div>
-
             ))
         }
       </div>
