@@ -37,6 +37,10 @@ const MedalsPage = () => {
                   loading="lazy"
                   src={el.image}
                   alt="Obtained Medal Picture"
+                  onClick={() => {
+                    setDisplayModal(true)
+                    setCurrentMedal(el)
+                  }}
                   width={150}
                   height={150}
                   className="w-10rem m-1" />

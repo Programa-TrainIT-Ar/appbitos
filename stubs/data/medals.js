@@ -31,7 +31,7 @@ function createRandomMedal() {
 }
 
 module.exports = faker.helpers.multiple(createRandomMedal, {
-  count: 155,
+  count: 100,
 })
 
 
