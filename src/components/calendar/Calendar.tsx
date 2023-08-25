@@ -1,5 +1,5 @@
 import { Carousel, CarouselPageChangeEvent } from 'primereact/carousel';
-import { CalendarState, CalendarType } from '../../../types/calendar';
+import { CalendarState, CalendarType } from '../../types/calendar';
 import { useEffect, useState } from 'react';
 import TemplateCalendar from './TemplateCalendar';
 
@@ -8,9 +8,10 @@ interface Props {
 }
 
 export default function Calendar({ dates }: Props) {
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(new Date().getMonth());
     const [yearState, setYearState] = useState(new Date().getFullYear());
     const [calendarState, setCalendarState] = useState<CalendarState[] | null>(null);
+
     const month = Array.from({ length: 12 }, (_, index) => index);
     const intl = new Intl.DateTimeFormat('es', { month: 'long' });
     const days = ['sun', 'mon', 'tue', 'wedn', 'thur', 'fri', 'sat'];

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { getCalendarDates } from '../../api/calendar/client';
 import { CalendarType } from '../../../types/calendar';
-import Calendar from './Calendar';
+import Calendar from '../../../components/calendar/Calendar';
 
 const CalendarPage = () => {
     const [dates, setDates] = useState<CalendarType | null>(null);
@@ -13,7 +13,7 @@ const CalendarPage = () => {
         });
     }, []);
 
-    return <div className="w-full">{dates && <Calendar dates={dates} />}</div>;
+    return <div className="w-max">{dates && <Calendar dates={dates} />}</div>;
 };
 
 export default CalendarPage;

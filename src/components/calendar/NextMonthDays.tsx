@@ -1,4 +1,4 @@
-import { CalendarState } from '../../../types/calendar';
+import { CalendarState } from '../../types/calendar';
 
 interface Props {
     calendar: CalendarState;
