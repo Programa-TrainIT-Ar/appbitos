@@ -22,7 +22,7 @@ const MedalsPage = () => {
     MedalsService.getMedals().then(setMedals)
   }, []);
 
-  function renderObtainedMedals() {
+  function renderLastObtainedMedals() {
     return (
       medals
         .filter((el: Medal) => el.obtained)
@@ -46,7 +46,7 @@ const MedalsPage = () => {
     )
   }
 
-  function renderLastObtainedMedals() {
+  function renderPossibleMedals() {
     return (
       medals
         .filter((el: Medal) => el.obtained === false)
@@ -72,11 +72,14 @@ const MedalsPage = () => {
     <div className="flex h-screen" >
       <div className="flex flex-column  align-items-center">
         <h2 className="ml-4">Medallas obtenidas</h2>
-        {renderObtainedMedals()}
+
+        {renderLastObtainedMedals()}
+
       </div>
 
       <div className="md:ml-7 grid overflow-y-scroll overflow-x-hidden">
-        {renderLastObtainedMedals()}
+
+        {renderPossibleMedals()}
 
         <Dialog
           header={currentMedal.name}
