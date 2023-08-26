@@ -2,19 +2,22 @@ import { Carousel, CarouselPageChangeEvent } from 'primereact/carousel';
 import { CalendarState, CalendarType } from '../../types/calendar';
 import { useEffect, useState } from 'react';
 import TemplateCalendar from './TemplateCalendar';
+import ContextDialogProvider from './ContextDialog';
+import DialogModal from './dialog/DialogModal';
 
 interface Props {
     dates: CalendarType;
 }
 
+const [DAY, MONTH, YEAR] = new Date().toLocaleDateString().split('/');
+
 export default function Calendar({ dates }: Props) {
-    const [page, setPage] = useState(new Date().getMonth());
-    const [yearState, setYearState] = useState(new Date().getFullYear());
+    const [page, setPage] = useState(parseInt(MONTH));
+    const [yearState, setYearState] = useState(parseInt(YEAR));
     const [calendarState, setCalendarState] = useState<CalendarState[] | null>(null);
 
     const month = Array.from({ length: 12 }, (_, index) => index);
     const intl = new Intl.DateTimeFormat('es', { month: 'long' });
-    const days = ['sun', 'mon', 'tue', 'wedn', 'thur', 'fri', 'sat'];
 
     function createCalendar() {
         const calendar: CalendarState[] = month.map((monthKey) => {
@@ -70,9 +73,14 @@ export default function Calendar({ dates }: Props) {
 
     return (
         <>
-            <div className="w-full ">
-                {calendarState && <Carousel value={calendarState} itemTemplate={templateCalendar} numVisible={1} numScroll={1} onPageChange={handleChange} showIndicators={false} page={page} orientation="vertical" verticalViewPortHeight="530px" />}
-            </div>
+            <ContextDialogProvider>
+                <div className="w-full ">
+                    {calendarState && (
+                        <Carousel value={calendarState} itemTemplate={templateCalendar} numVisible={1} numScroll={1} onPageChange={handleChange} showIndicators={false} page={page} orientation="vertical" verticalViewPortHeight="530px" />
+                    )}
+                </div>
+                <DialogModal />
+            </ContextDialogProvider>
         </>
     );
 }

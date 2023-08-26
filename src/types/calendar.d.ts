@@ -8,6 +8,10 @@ export interface Task {
     title: string;
     description: string;
     priority: string;
+    etiquette: {
+        name: string;
+        color: `${string}` & { length: 6 };
+    };
 }
 
 export interface User {

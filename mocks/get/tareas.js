@@ -5,7 +5,11 @@ function createDatesCalendar() {
         date: faker.date.future(),
         title: faker.string.nanoid({ min: 10, max: 30 }),
         description: faker.string.sample({ min: 30, max: 250 }),
-        priority: faker.string.fromCharacters(['low', 'medium', 'high'])
+        priority: faker.string.fromCharacters(['low', 'medium', 'high']),
+        etiquette: {
+            name: faker.string.fromCharacters(['etiqueta1', 'etiqueta2', 'etiqueta3']),
+            color: faker.string.hexadecimal({ length: 6, casing: 'mixed', prefix: '' })
+        }
     };
 }
 
