@@ -1,10 +1,11 @@
 "use client"
 
 import React, { useEffect, useState } from "react";
-import { getMedals } from "../../api/medals";
 import { Medal } from "../../../types/medals";
 import { Dialog } from "primereact/dialog";
 import Image from "next/image";
+import MedalsService from "../../../service/MedalsService";
+
 
 const MedalsPage = () => {
 
@@ -20,8 +21,11 @@ const MedalsPage = () => {
   })
 
   useEffect(() => {
-    getMedals().then((data: Medal[]) => setMedals(data));
+    MedalsService.getMedals().then(setMedals)
   }, []);
+
+
+  
 
   return (
     <div className="flex h-screen" >
