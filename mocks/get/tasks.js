@@ -120,6 +120,35 @@ const goalsFunctions = {
     const goal = goalsTemplate.find((el) => el.id === goalId)
     const composedTask = goal.composedTasks.find(el => el.id === composedTaskId)
     composedTask.simpleTasks.push(simpleTask)
+  },
+
+  removeGoal(goalId) {
+    const goalIndex = goalsTemplate.findIndex((g) => g.id === goalId);
+    if (goalIndex > -1) {
+      goalsTemplate.splice(goalIndex, 1);
+    } else return "Not Found"
+  },
+
+  removeComposedTask(goalId, composedTaskId) {
+    const goal = goalsTemplate.find(goal => goal.id === goalId)
+    const composedTaskIndex = goal.composedTasks.findIndex(el => el.id === composedTaskId)
+    if (composedTaskIndex != -1) {
+      goal.composedTasks.splice(composedTaskIndex, 1)
+    } else {
+      return "Not found"
+    }
+
+
+  },
+
+  removeSimpleTask(goalId, composedTaskId, simpleTaskId) {
+
+    const goal = goalsTemplate.find(goal => goal.id === goalId)
+    const composedTask = goal.composedTasks.find(el => el.id === composedTaskId)
+    const foundSimpleTask = composedTask.simpleTasks.findIndex(el => el.id === simpleTaskId)
+    if (foundSimpleTask != -1) {
+      composedTask.simpleTasks.splice(foundSimpleTask, 1)
+    } else return "Not Found"
   }
 
 }
