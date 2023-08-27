@@ -114,12 +114,12 @@ const goalsFunctions = {
     meta.composedTasks.push(composedTask);
   },
 
-  addSimpleTasks(composedTaskId, simpleTask) {
+  addSimpleTasks(goalId, composedTaskId, simpleTask) {
     // composedTaskId es el id de la tarea compuesta, simpleTask es el objeto completo
-    // // para arreglar, si se le pasa el id de la goal, se agrega una tarea compuesta
     simpleTask.id = faker.string.uuid()
-    const goal = goalsTemplate.find((goal) => goal.composedTasks.find((c) => c.id === composedTaskId));
-    goal.composedTasks.push(simpleTask);
+    const goal = goalsTemplate.find((el) => el.id === goalId)
+    const composedTask = goal.composedTasks.find(el => el.id === composedTaskId)
+    composedTask.simpleTasks.push(simpleTask)
   }
 
 }

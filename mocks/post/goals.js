@@ -10,7 +10,7 @@ module.exports = [
           goalsFunctions.addGoal(body)
           return { status: 200, message: "Goal Added" }
         } catch (error) {
-          return { message: "Ha ocurrido un error" }
+          return error.message
         }
       }
     }
@@ -23,21 +23,21 @@ module.exports = [
           goalsFunctions.addComposedTask(params.cid, body)
           return { status: 200, message: "Goal Added" }
         } catch (error) {
-          return { message: "Ha ocurrido un error" }
+          return error.message
         }
       }
 
     }
   },
   {
-    path: "/goals/tasks/:tid",
+    path: "/goals/:gid/:tid",
     template: {
       response: function(params, query, body) {
         try {
-          goalsFunctions.addSimpleTasks(params.tid, body)
+          goalsFunctions.addSimpleTasks(params.gid, params.tid, body)
           return { status: 200, message: "Goal Added" }
         } catch (error) {
-          return { message: "Ha ocurrido un error" }
+          return error.message
         }
       }
 
