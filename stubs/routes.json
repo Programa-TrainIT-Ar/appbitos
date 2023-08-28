@@ -1,3 +1,6 @@
 {
-    "/users" : "/users"
-  }
+
+  "/medals" : "/medals",
+  "/users" : "/users"
+}
+
