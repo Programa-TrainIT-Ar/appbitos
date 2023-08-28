@@ -1,9 +1,16 @@
 "use client";
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Menu } from 'primereact/menu';
 import { Button } from 'primereact/button';
+import { goalsService } from '../../../service/goalsService';
+
 
 const OverlayMenu = () => {
+
+
+  useEffect(() => {
+    goalsService.getGoals().then(data => console.log(data))
+  }, [])
   const menu = useRef<Menu>(null);
 
   const overlayMenuItems = [

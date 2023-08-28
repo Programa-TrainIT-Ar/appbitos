@@ -1,7 +1,7 @@
 export interface Goal {
   id: string,
-  name: string,
   status: boolean,
+  name: string,
   description: string,
   ComposedTasks: ComposedTask[]
 
