@@ -1,11 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { getCalendarDates } from '../../api/calendar/client';
+import CalendarService from '../../../service/CalendarService';
 import { CalendarType } from '../../../types/calendar';
 import Calendar from '../../../components/calendar/Calendar';
 
 const CalendarPage = () => {
     const [dates, setDates] = useState<CalendarType | null>(null);
+    const { getCalendarDates } = CalendarService;
+
     useEffect(() => {
         getCalendarDates().then((data) => {
             setDates(data);
