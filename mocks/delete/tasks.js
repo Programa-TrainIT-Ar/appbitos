@@ -10,7 +10,10 @@ module.exports = [
           goalsFunctions.removeGoal(params.gid)
           return { status: 200, message: "Goal Removed!" }
         } catch (error) {
-          return error.message
+          return {
+            message: "Ha ocurrido un error o no se ha encontrado",
+            details: error.message
+          }
         }
       }
     }
@@ -23,7 +26,10 @@ module.exports = [
           goalsFunctions.removeComposedTask(params.gid, params.cid)
           return { status: 200, message: "Composed task Removed!" }
         } catch (error) {
-          return error.message
+          return {
+            message: "Ha ocurrido un error o no se ha encontrado",
+            details: error.message
+          }
         }
       }
 
@@ -37,7 +43,10 @@ module.exports = [
           goalsFunctions.removeSimpleTask(params.gid, params.cid, params.sid)
           return { status: 200, message: "Simple task Removed!" }
         } catch (error) {
-          return error.message
+          return {
+            message: "Ha ocurrido un error o no se ha encontrado",
+            details: error.message
+          }
         }
       }
 

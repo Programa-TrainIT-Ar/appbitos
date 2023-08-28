@@ -101,54 +101,50 @@ const goalsTemplate =
   ]
 
 
-
 const goalsFunctions = {
 
   addGoal(goal) {
     goal.id = faker.string.uuid()
+    goal.composedTasks = []
     goalsTemplate.push(goal)
   },
   addComposedTask(goalId, composedTask) {
     composedTask.id = faker.string.uuid()
-    const meta = goalsTemplate.find((g) => g.id === goalId);
-    meta.composedTasks.push(composedTask);
+    composedTask.simpleTasks = []
+    const goal = goalsTemplate.find((g) => g.id === goalId);
+    goal.composedTasks.push(composedTask);
   },
-
   addSimpleTasks(goalId, composedTaskId, simpleTask) {
-    // composedTaskId es el id de la tarea compuesta, simpleTask es el objeto completo
     simpleTask.id = faker.string.uuid()
     const goal = goalsTemplate.find((el) => el.id === goalId)
     const composedTask = goal.composedTasks.find(el => el.id === composedTaskId)
     composedTask.simpleTasks.push(simpleTask)
   },
-
   removeGoal(goalId) {
     const goalIndex = goalsTemplate.findIndex((g) => g.id === goalId);
     if (goalIndex > -1) {
       goalsTemplate.splice(goalIndex, 1);
-    } else return "Not Found"
+    } else throw new Error("Not Found")
   },
-
   removeComposedTask(goalId, composedTaskId) {
     const goal = goalsTemplate.find(goal => goal.id === goalId)
     const composedTaskIndex = goal.composedTasks.findIndex(el => el.id === composedTaskId)
     if (composedTaskIndex != -1) {
       goal.composedTasks.splice(composedTaskIndex, 1)
     } else {
-      return "Not found"
+      throw new Error("Composed task Not Found")
+
     }
-
-
   },
-
   removeSimpleTask(goalId, composedTaskId, simpleTaskId) {
-
     const goal = goalsTemplate.find(goal => goal.id === goalId)
     const composedTask = goal.composedTasks.find(el => el.id === composedTaskId)
     const foundSimpleTask = composedTask.simpleTasks.findIndex(el => el.id === simpleTaskId)
     if (foundSimpleTask != -1) {
       composedTask.simpleTasks.splice(foundSimpleTask, 1)
-    } else return "Not Found"
+    } else
+      throw new Error("Simple task not Found")
+
   }
 
 }
