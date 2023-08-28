@@ -1,4 +1,4 @@
-const { faker } = require('@faker-js/faker');
+const {faker} = require("@faker-js/faker");
 
 function createRandomUser() {
     return {
@@ -13,6 +13,8 @@ function createRandomUser() {
     };
 }
 
-module.exports = faker.helpers.multiple(createRandomUser, {
-    count: 1
-});
+module.exports = {
+    path: '/user-details',
+    method: 'GET',
+    template: createRandomUser()
+};

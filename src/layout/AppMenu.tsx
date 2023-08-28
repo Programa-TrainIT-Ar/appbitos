@@ -10,14 +10,17 @@ import { AppMenuItem } from '../types/types';
 const AppMenu = () => {
   const { layoutConfig } = useContext(LayoutContext);
 
+
   const model: AppMenuItem[] = [
     {
       label: 'Home',
       items: [
         { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
-        { label: 'Medals', icon: 'pi pi-fw pi-flag', to: '/medals' },
+        { label: 'Medallas', icon: 'pi pi-fw pi-flag', to: '/medals' },
+        { label: 'Detalles de Usuario', icon: 'pi pi-fw pi-user', to: '/user' }
       ]
     },
+
 
   ];
 
