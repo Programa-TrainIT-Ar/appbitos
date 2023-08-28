@@ -53,12 +53,12 @@ const goalsTemplate =
       ]
     },
     {
-      id: "testId",
+      id: faker.string.uuid(),
       goalName: "Viajar por el mundo",
       status: false,
       composedTasks: [
         {
-          id: "composedTaskTestId",
+          id: faker.string.uuid(),
           nombre: "Reunir dinero",
           status: false,
           simpleTasks: [
