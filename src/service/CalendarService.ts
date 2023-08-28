@@ -1,5 +1,5 @@
 import { CalendarType, Task } from '../types/calendar';
-const BASE_URL = 'http://localhost:3004/';
+const BASE_URL = 'http://localhost:3004';
 
 const CalendarService = {
     getCalendarDates: async (): Promise<CalendarType> => {

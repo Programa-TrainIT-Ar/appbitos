@@ -21,7 +21,7 @@ export default function RenderDay({ calendar, dates }: Props) {
                 return (
                     <div onClick={() => handleVisible({ task, daySelected })} key={crypto.randomUUID()} className="text-sm w-3rem border-1 border-400 h-5rem  overflow-hidden cursor-pointer hover:shadow-2 ">
                         <p className="pl-2 hover:bg-red-100   transition-all transition-duration-300 shadow-1 m-0 ">{day}</p>
-                        <div style={{ background: task ? `#${task?.etiquette?.color}` : 'transparent', height: '5px', width: '3rem', margin: 0 }}></div>
+
                         <span className="text-xs">{task?.title}</span>
                     </div>
                 );

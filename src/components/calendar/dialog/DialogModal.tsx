@@ -3,7 +3,6 @@ import { useContextDialog } from '../ContextDialog';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
-import { ColorPicker } from 'primereact/colorpicker';
 
 export default function DialogModal() {
     const { visible, handleHide, dataDialog } = useContextDialog();
@@ -25,9 +24,7 @@ export default function DialogModal() {
         <>
             <Dialog header={daySelected.toUpperCase()} visible={visible} style={{ width: '40vw', display: 'flex', minWidth: '370px', wordWrap: 'break-word' }} onHide={handleHide}>
                 <h3 className="text-center">{task.title}</h3>
-
-                <p className="m-0 w-">{task.description}</p>
-                <ColorPicker format="hex" value={task?.etiquette.color} />
+                <p className="m-0">{task.description}</p>o
                 <div className="flex justify-content-end">
                     <Button label="Borrar" className="m-2 right-0" severity="danger"></Button>
                     <Button label="editar" className="m-2 right-0" severity="info"></Button>
