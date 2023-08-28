@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
 
-const Dashboard = () => {
-    return <div className="grid"></div>;
+const Main = () => {
+    return <div className=""></div>;
 };
 
-export default Dashboard;
+export default Main;

@@ -6,5 +6,7 @@ interface AppLayoutProps {
 }
 
 export default function AppLayout({ children }: AppLayoutProps) {
-  return <Layout>{children}</Layout>;
+  return <Layout>
+    {children}
+  </Layout>;
 }

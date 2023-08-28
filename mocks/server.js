@@ -4,5 +4,5 @@ dyson.bootstrap({
     configDir: __dirname,
     port: process.env.PORT || 3004,
     quiet: false,
-    "proxyDelay": [200, 800]
+    "proxyDelay": [3000, 5000 ]
 });
