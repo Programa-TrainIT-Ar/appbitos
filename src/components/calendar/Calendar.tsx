@@ -21,8 +21,9 @@ export default function Calendar({ dates }: Props) {
 
     function createCalendar() {
         const calendar: CalendarState[] = month.map((monthKey) => {
-            const monthName = intl.format(new Date(yearState, monthKey));
-            const start = new Date(yearState, monthKey).getDay();
+            const newDate = new Date(yearState, monthKey);
+            const monthName = intl.format(newDate);
+            const start = newDate.getDay();
             const lastDayOfMonth = new Date(yearState, monthKey + 1, 0).getDate();
             const prevLastDayOfMoth = monthKey !== 0 ? new Date(yearState, monthKey, 0).getDate() : new Date(yearState - 1, 12, 0).getDate();
 

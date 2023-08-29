@@ -4,6 +4,7 @@ export interface CalendarType {
 }
 
 export interface Task {
+    id: string;
     date: Date;
     title: string;
     description: string;

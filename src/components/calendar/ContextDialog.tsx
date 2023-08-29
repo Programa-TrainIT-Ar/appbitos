@@ -3,21 +3,21 @@ import { Task } from '../../types/calendar';
 
 interface DataDialog {
     task: Task | null;
-    daySelected: string;
+    daySelected: Date;
 }
 
 interface StateType {
     visible: boolean;
     handleVisible: (data: DataDialog) => void;
     handleHide: () => void;
-    dataDialog: DataDialog | null;
+    dataDialog: DataDialog;
 }
 
 export const ContextDialog = createContext<StateType | null>(null);
 
 export default function ContextDialogProvider({ children }: { children: ReactNode }) {
     const [visible, setVisible] = useState(false);
-    const [dataDialog, setDataDialog] = useState<null | DataDialog>(null);
+    const [dataDialog, setDataDialog] = useState<DataDialog>({ task: null, daySelected: new Date() });
 
     const handleVisible = (data: DataDialog) => {
         setDataDialog(data);
