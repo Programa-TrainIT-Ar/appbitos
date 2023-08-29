@@ -41,7 +41,6 @@ const goalsTemplate =
           simpleTasks: [
             {
               id: faker.string.uuid(),
-
               name: "Buscar alternativas",
               descripcion: "Probar otro tipo de cigarrillo con menos nicotina",
               fecha_inicio: "2023-08-26",

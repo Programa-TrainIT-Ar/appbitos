@@ -10,7 +10,6 @@ const OverlayMenu = () => {
 
   useEffect(() => {
     goalsService.getGoals().then(data => console.log(data))
-    goalsService.deleteGoal("657866bb-9fad-4772-9c06-29d1388e630c").then(data => console.log(data))
   }, [])
   const menu = useRef<Menu>(null);
 
