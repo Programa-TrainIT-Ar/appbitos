@@ -47,13 +47,15 @@ const CalendarPage = () => {
     };
 
     return (
-        <div className="w-max">
+        <>
             {dates && (
                 <ContextDateTasks.Provider value={valueContext}>
-                    <Calendar dates={dates} />
+                    <div className="w-screen top-2vh left-0 absolute sm:relative sm:w-full s flex justify-content-center">
+                        <Calendar dates={dates} />
+                    </div>
                 </ContextDateTasks.Provider>
             )}
-        </div>
+        </>
     );
 };
 

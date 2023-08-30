@@ -16,7 +16,12 @@ export default function RenderDay({ calendar, dates }: Props) {
                 const task = dates.find((u) => new Date(u.date).toLocaleDateString() === new Date(year, monthKey, index + 1).toLocaleDateString()) ?? null;
 
                 return (
-                    <div onClick={() => handleVisible({ task, daySelected: new Date(year, monthKey, day) })} key={crypto.randomUUID()} className="text-sm w-3rem border-1 border-400 h-5rem  overflow-hidden cursor-pointer hover:shadow-2 ">
+                    <div
+                        onClick={() => handleVisible({ task, daySelected: new Date(year, monthKey, day) })}
+                        key={crypto.randomUUID()}
+                        className="text-sm lg:h-6rem border-1 border-400 h-5rem  overflow-hidden cursor-pointer hover:shadow-2 "
+                        style={{ flexBasis: 'calc(100% / 7)' }}
+                    >
                         <p className="pl-2 hover:bg-red-100   transition-all transition-duration-300 shadow-1 m-0 ">{day}</p>
 
                         <span className="text-xs">{task?.title}</span>

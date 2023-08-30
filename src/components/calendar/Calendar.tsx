@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import TemplateCalendar from './TemplateCalendar';
 import ContextDialogProvider from './ContextDialog';
 import DialogModal from './dialog/DialogModal';
+import '../../styles/calendar/templateCalendar.scss';
 
 interface Props {
     dates: CalendarType;
@@ -50,6 +51,8 @@ export default function Calendar({ dates }: Props) {
         });
     }, [yearState]);
 
+    useEffect(() => {}, [dates]);
+
     const templateCalendar = (calendar: CalendarState) => {
         return <TemplateCalendar calendar={calendar} dates={dates.dates} />;
     };
@@ -75,9 +78,20 @@ export default function Calendar({ dates }: Props) {
     return (
         <>
             <ContextDialogProvider>
-                <div className="w-full ">
+                <div className="">
                     {calendarState && (
-                        <Carousel value={calendarState} itemTemplate={templateCalendar} numVisible={1} numScroll={1} onPageChange={handleChange} showIndicators={false} page={page} orientation="vertical" verticalViewPortHeight="530px" />
+                        <Carousel
+                            value={calendarState}
+                            itemTemplate={templateCalendar}
+                            numVisible={1}
+                            numScroll={1}
+                            onPageChange={handleChange}
+                            showIndicators={false}
+                            page={page}
+                            orientation="vertical"
+                            verticalViewPortHeight="530px"
+                            contentClassName=""
+                        />
                     )}
                 </div>
                 <DialogModal />
