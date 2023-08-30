@@ -74,7 +74,7 @@ const MedalsPage = () => {
   function toolBoxTemplate() {
     return (<div className="flex">
       <InputSwitch className="ml-3" checked={showAllObtainedMedals} onChange={(e) => setShowAllObtainedMedals(e.value)} />
-      <p className="hidden md:block ml-4 font-semibold text-xl  ">Mira  <span className="text-yellow-500 font-bold">tus medallas</span> </p>
+      <p className="hidden md:block ml-4 font-semibold text-xl  ">Mira todas <span className="text-yellow-500 font-bold">tus medallas</span> </p>
     </div>)
   }
 
@@ -83,7 +83,7 @@ const MedalsPage = () => {
   return (
     <div className="flex h-screen" >
       <div className="flex flex-column  align-items-center">
-        <h2 className="ml-4">Medallas obtenidas</h2>
+        <h2 className="ml-4">Ultimas Medallas obtenidas</h2>
 
         {renderLastObtainedMedals()}
 
