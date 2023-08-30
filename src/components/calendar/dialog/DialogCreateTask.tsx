@@ -1,18 +1,18 @@
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
-import { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Task } from '../../../types/calendar';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import CalendarService from '../../../service/CalendarService';
-import { ContextDateTasks } from '../../../app/(main)/calendar/page';
-import { useContextDialog } from '../ContextDialog';
+import { useContextDialog } from '../contexts/ContextDialog';
 import { faker } from '@faker-js/faker';
+import { useContextTasks } from '../contexts/ContextTasks';
 
 export default function DialogCreateTask() {
     const { dataDialog, handleHide } = useContextDialog();
     const [newTask, setNewTask] = useState<Omit<Task, 'id'>>({ date: dataDialog.daySelected, description: '', priority: '', title: '' });
-    const { handleContextAddTask } = useContext(ContextDateTasks);
+    const { handleContextAddTask } = useContextTasks();
 
     const handleSettask = (event: DropdownChangeEvent | ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | undefined) => {
         if (event) {

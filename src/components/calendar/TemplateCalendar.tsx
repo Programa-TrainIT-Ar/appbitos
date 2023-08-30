@@ -6,10 +6,9 @@ import '../../styles/calendar/templateCalendar.scss';
 
 interface Props {
     calendar: CalendarState;
-    dates: Task[];
 }
 
-export default function TemplateCalendar({ calendar, dates }: Props) {
+export default function TemplateCalendar({ calendar }: Props) {
     const days = ['sun', 'mon', 'tue', 'wedn', 'thur', 'fri', 'sat'];
 
     return (
@@ -19,16 +18,16 @@ export default function TemplateCalendar({ calendar, dates }: Props) {
                 <span className="mr-2">{calendar.year}</span>
             </div>
 
-            <div className="flex w-24rem  sm:w-30rem lg:w-12 container">
+            <div className="flex w-24rem  sm:w-30rem lg:w-12 container mt-3 mb-1">
                 {days.map((u) => (
-                    <span className="text-sm text-center " key={u + '' + Math.random()} style={{ flexBasis: 'calc(100% / 7)' }}>
+                    <span className="text-sm text-center lg:text-lg" key={u + '' + Math.random()} style={{ flexBasis: 'calc(100% / 7)' }}>
                         {u}
                     </span>
                 ))}
             </div>
-            <div className="calendarContainer flex flex-wrap w-24rem  sm:w-30rem h-30rem lg:w-12 md:h-6 align-content-start ">
+            <div className=" flex flex-wrap w-24rem  sm:w-30rem h-30rem lg:w-12 md:h-6 align-content-start ">
                 <PrevMonthDays calendar={calendar} />
-                <RenderDay calendar={calendar} dates={dates} />
+                <RenderDay calendar={calendar} />
                 <NextMonthDays calendar={calendar} />
             </div>
         </div>

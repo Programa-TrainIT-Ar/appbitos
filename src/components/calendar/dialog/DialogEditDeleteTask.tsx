@@ -1,11 +1,10 @@
 import { Button } from 'primereact/button';
-import { useContextDialog } from '../ContextDialog';
+import { useContextDialog } from '../contexts/ContextDialog';
 import CalendarService from '../../../service/CalendarService';
-import { useContext } from 'react';
-import { ContextDateTasks } from '../../../app/(main)/calendar/page';
+import { useContextTasks } from '../contexts/ContextTasks';
 
 export default function DialogEditDeleteTask() {
-    const { handleContextDeleteTask } = useContext(ContextDateTasks);
+    const { handleContextDeleteTask } = useContextTasks();
     const { handleHide, dataDialog } = useContextDialog();
 
     if (!dataDialog?.task) throw new Error('implements that component only if dataDialog is not null');

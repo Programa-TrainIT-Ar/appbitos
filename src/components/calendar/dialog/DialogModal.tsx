@@ -1,5 +1,5 @@
 import { Dialog } from 'primereact/dialog';
-import { useContextDialog } from '../ContextDialog';
+import { useContextDialog } from '../contexts/ContextDialog';
 import DialogEditDeleteTask from './DialogEditDeleteTask';
 import DialogCreateTask from './DialogCreateTask';
 

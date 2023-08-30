@@ -1,5 +1,5 @@
 import { createContext, useState, ReactNode, useContext } from 'react';
-import { Task } from '../../types/calendar';
+import { Task } from '../../../types/calendar';
 
 interface DataDialog {
     task: Task | null;
