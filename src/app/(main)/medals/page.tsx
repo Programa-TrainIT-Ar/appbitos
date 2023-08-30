@@ -49,10 +49,10 @@ const MedalsPage = () => {
     )
   }
 
-  function renderPossibleMedals() {
+  function renderPossibleMedals(obtained: boolean) {
     return (
       medals
-        .filter((el: Medal) => el.obtained === false)
+        .filter((el: Medal) => el.obtained === obtained)
         .map((el: Medal, index) => (
           <div key={index} className="sm:col-2 md:col-3 p-1 my-1 flex justify-content-center flex-column align-items-center">
             <Image
@@ -60,7 +60,7 @@ const MedalsPage = () => {
                 setDisplayModal(true)
                 setCurrentMedal(el)
               }}
-              src="https://www.svgrepo.com/show/465475/lock.svg"
+              src={obtained ? el.image : `https://www.svgrepo.com/show/465475/lock.svg`}
               alt="Medal Picture"
               width={60}
               height={60}
@@ -70,6 +70,15 @@ const MedalsPage = () => {
         ))
     )
   }
+
+  function toolBoxTemplate() {
+    return (<div className="flex">
+      <InputSwitch className="ml-3" checked={showAllObtainedMedals} onChange={(e) => setShowAllObtainedMedals(e.value)} />
+      <p className="hidden md:block ml-4 font-semibold text-xl  ">Mira  <span className="text-yellow-500 font-bold">tus medallas</span> </p>
+    </div>)
+  }
+
+
 
   return (
     <div className="flex h-screen" >
@@ -81,8 +90,11 @@ const MedalsPage = () => {
       </div>
 
       <div className="md:ml-7 grid overflow-y-scroll overflow-x-hidden">
-        <Toolbar className="ml-5 w-full  rounded" left={<InputSwitch className="ml-3" checked={showAllObtainedMedals} onChange={(e) => setShowAllObtainedMedals(e.value)} />} />
-        {renderPossibleMedals()}
+        <Toolbar className="border-round-2xl ml-5 w-full bg-gray-200  md:border-round-lg" left={toolBoxTemplate()} />
+
+
+        {showAllObtainedMedals ? renderPossibleMedals(true) : renderPossibleMedals(false)}
+
 
         <Dialog
           header={currentMedal.name}
