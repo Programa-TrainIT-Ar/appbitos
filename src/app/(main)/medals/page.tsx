@@ -4,9 +4,12 @@ import { Medal } from "../../../types/medals";
 import { Dialog } from "primereact/dialog";
 import Image from "next/image";
 import MedalsService from "../../../service/MedalsService";
+import { Toolbar } from "primereact/toolbar";
+import { InputSwitch } from "primereact/inputswitch";
 
 const MedalsPage = () => {
 
+  const [showAllObtainedMedals, setShowAllObtainedMedals] = useState<any>(false)
   const [medals, setMedals] = useState<Medal[]>([]);
   const [displayModal, setDisplayModal] = useState(false)
   const [currentMedal, setCurrentMedal] = useState<Medal>({
@@ -78,7 +81,7 @@ const MedalsPage = () => {
       </div>
 
       <div className="md:ml-7 grid overflow-y-scroll overflow-x-hidden">
-
+        <Toolbar className="ml-5 w-full  rounded" left={<InputSwitch className="ml-3" checked={showAllObtainedMedals} onChange={(e) => setShowAllObtainedMedals(e.value)} />} />
         {renderPossibleMedals()}
 
         <Dialog
