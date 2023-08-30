@@ -72,12 +72,13 @@ const MedalsPage = () => {
 
   function toolBoxTemplate() {
     return (
-      <div className="flex">
-        {!showAllObtainedMedals && <Image className="md:hidden mr-2" src="https://www.svgrepo.com/show/465475/lock.svg" alt="lockedMedals" height={37} width={37} />
-        }
+      <div className="flex mt-2">
         <InputSwitch className="md:ml-3 mt-1" checked={showAllObtainedMedals} onChange={(e) => setShowAllObtainedMedals(e.value)} />
-        {showAllObtainedMedals && <Image className="md:hidden ml-2" src="https://www.svgrepo.com/show/180473/medal-medal.svg" alt="lockedMedals" height={40} width={40} />
-        }
+
+        {showAllObtainedMedals
+          ? <Image className="md:hidden ml-2" src="https://www.svgrepo.com/show/465475/lock.svg" alt="lockedMedals" height={40} width={40} />
+          : <Image className="md:hidden ml-2" src="https://www.svgrepo.com/show/180473/medal-medal.svg" alt="lockedMedals" height={40} width={40} />}
+
         <p className="hidden md:block ml-4 font-semibold text-xl  ">Mira  <span className="text-yellow-500 font-bold">tus medallas</span> </p>
       </div>
     )
