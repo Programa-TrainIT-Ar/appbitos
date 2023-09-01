@@ -20,7 +20,15 @@ export const goalsService = {
     return await fetch(`${BASE_URL}/goals/${gid}`, {
       method: "DELETE",
     }).then(res => res.json())
+  },
+
+
+  deleteSimpleTask: async (gid: string | undefined, cid: string | undefined, sid: string | undefined): Promise<Object> => {
+    return await fetch(`${BASE_URL}/goals/${gid}/${cid}/${sid}`, {
+      method: "DELETE",
+    }).then(res => res.json())
   }
+
 
 
 

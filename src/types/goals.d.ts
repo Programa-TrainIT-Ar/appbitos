@@ -3,7 +3,7 @@ export interface Goal {
   status?: boolean,
   name: string,
   description: string,
-  ComposedTasks?: ComposedTask[]
+  composedTasks?: ComposedTask[]
 
 }
 

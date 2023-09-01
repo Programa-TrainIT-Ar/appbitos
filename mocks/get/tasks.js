@@ -6,13 +6,13 @@ const goalsTemplate =
   [
     {
       id: faker.string.uuid(),
-      goalName: "Mejorar la salud",
+      name: "Mejorar la salud",
       status: false,
       composedTasks: [
         {
 
           id: faker.string.uuid(),
-          nombre: "Perder peso",
+          name: "Perder peso",
           status: false,
           simpleTasks: [
             {
@@ -36,15 +36,15 @@ const goalsTemplate =
         {
 
           id: faker.string.uuid(),
-          nombre: "Dejar de fumar",
+          name: "Dejar de fumar",
           status: false,
           simpleTasks: [
             {
               id: faker.string.uuid(),
               name: "Buscar alternativas",
-              descripcion: "Probar otro tipo de cigarrillo con menos nicotina",
-              fecha_inicio: "2023-08-26",
-              fecha_fin: "2023-12-31",
+              description: "Probar otro tipo de cigarrillo con menos nicotina",
+              start_date: "2023-08-26",
+              end_date: "2023-12-31",
               status: false
             }
           ]
@@ -53,12 +53,12 @@ const goalsTemplate =
     },
     {
       id: faker.string.uuid(),
-      goalName: "Viajar por el mundo",
+      name: "Viajar por el mundo",
       status: false,
       composedTasks: [
         {
           id: faker.string.uuid(),
-          nombre: "Reunir dinero",
+          name: "Reunir dinero",
           status: false,
           simpleTasks: [
             {
@@ -82,7 +82,7 @@ const goalsTemplate =
         },
         {
           id: faker.string.uuid(),
-          nombre: "Investigar las mejores rutas",
+          name: "Investigar las mejores rutas",
           status: false,
           simpleTasks: [
             {
@@ -136,6 +136,7 @@ const goalsFunctions = {
     }
   },
   removeSimpleTask(goalId, composedTaskId, simpleTaskId) {
+    console.log(goalId, composedTaskId, simpleTaskId)
     const goal = goalsTemplate.find(goal => goal.id === goalId)
     const composedTask = goal.composedTasks.find(el => el.id === composedTaskId)
     const foundSimpleTask = composedTask.simpleTasks.findIndex(el => el.id === simpleTaskId)
