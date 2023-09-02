@@ -7,30 +7,7 @@ import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Goal, SimpleTask, ComposedTask } from '../../../types/goals';
 
 
-// Define los tipos adecuados para las estructuras de datos
-// type SimpleTask = {
-//   id: string;
-//   name: string;
-//   description: string;
-//   start_date: string;
-//   end_date: string;
-//   status: boolean;
-// };
-// import { ComposedTask } from '../../../types/goals';
-
-// type ComposedTask = {
-//   id: string;
-//   nombre: string;
-//   status: boolean;
-//   simpleTasks: SimpleTask[];
-// };
-
-// type Goal = {
-//   id: string;
-//   goalName: string;
-//   status: boolean;
-//   composedTasks: ComposedTask[];
-// };
+// Define los tipos adecuados para las estructuras de datos (ya estan definidos los tipos en /src/types/goals.d.types)
 
 const Metas = () => {
   const [metas, setMetas] = useState<Goal[]>([]);
