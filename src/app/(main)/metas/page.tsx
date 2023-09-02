@@ -128,10 +128,9 @@ const Metas = () => {
       <Menu ref={menu} model={MetasItems} popup />
       <Button
         type="button"
-        label="Agregar"
-        icon="pi pi-angle-down"
+        label="+"
         onClick={toggleMenu}
-        style={{ width: 'auto' }}
+        style={{ width: '100%' }}
       />
     </div>
   );

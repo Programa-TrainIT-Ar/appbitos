@@ -16,6 +16,8 @@ export const goalsService = {
     }).then(res => res.json())
   },
 
+
+
   deleteGoal: async (gid: string): Promise<Object> => {
     return await fetch(`${BASE_URL}/goals/${gid}`, {
       method: "DELETE",
