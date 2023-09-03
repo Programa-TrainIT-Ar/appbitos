@@ -4,9 +4,12 @@ import { Medal } from "../../../types/medals";
 import { Dialog } from "primereact/dialog";
 import Image from "next/image";
 import MedalsService from "../../../service/MedalsService";
+import { Toolbar } from "primereact/toolbar";
+import { InputSwitch } from "primereact/inputswitch";
 
 const MedalsPage = () => {
 
+  const [showAllObtainedMedals, setShowAllObtainedMedals] = useState<any>(false)
   const [medals, setMedals] = useState<Medal[]>([]);
   const [displayModal, setDisplayModal] = useState(false)
   const [currentMedal, setCurrentMedal] = useState<Medal>({
@@ -46,10 +49,10 @@ const MedalsPage = () => {
     )
   }
 
-  function renderPossibleMedals() {
+  function renderPossibleMedals(obtained: boolean) {
     return (
       medals
-        .filter((el: Medal) => el.obtained === false)
+        .filter((el: Medal) => el.obtained === obtained)
         .map((el: Medal, index) => (
           <div key={index} className="sm:col-2 md:col-3 p-1 my-1 flex justify-content-center flex-column align-items-center">
             <Image
@@ -57,29 +60,47 @@ const MedalsPage = () => {
                 setDisplayModal(true)
                 setCurrentMedal(el)
               }}
-              src="https://www.svgrepo.com/show/465475/lock.svg"
+              src={obtained ? el.image : `https://www.svgrepo.com/show/465475/lock.svg`}
               alt="Medal Picture"
               width={60}
               height={60}
               className="w-10rem m-1" />
             <p>{el.name}</p>
           </div>
-        ))
+        )))
+  }
+
+  function toolBoxTemplate() {
+    return (
+      <div className="flex mt-2">
+        <InputSwitch className="md:ml-3 mt-1" checked={showAllObtainedMedals} onChange={(e) => setShowAllObtainedMedals(e.value)} />
+
+        {showAllObtainedMedals
+          ? <Image className="md:hidden ml-2" src="https://www.svgrepo.com/show/465475/lock.svg" alt="lockedMedals" height={40} width={40} />
+          : <Image className="md:hidden ml-2" src="https://www.svgrepo.com/show/180473/medal-medal.svg" alt="lockedMedals" height={40} width={40} />}
+
+        <p className="hidden md:block ml-4 font-semibold text-xl  ">Mira  <span className="text-yellow-500 font-bold">tus medallas</span> </p>
+      </div>
     )
   }
+
+
 
   return (
     <div className="flex h-screen" >
       <div className="flex flex-column  align-items-center">
-        <h2 className="ml-4">Medallas obtenidas</h2>
+        <h2 className="ml-4">Ultimas Medallas obtenidas</h2>
 
         {renderLastObtainedMedals()}
 
       </div>
 
       <div className="md:ml-7 grid overflow-y-scroll overflow-x-hidden">
+        <Toolbar className="border-round-2xl ml-5 w-full bg-gray-200  md:border-round-lg" left={toolBoxTemplate()} />
 
-        {renderPossibleMedals()}
+
+        {showAllObtainedMedals ? renderPossibleMedals(true) : renderPossibleMedals(false)}
+
 
         <Dialog
           header={currentMedal.name}
