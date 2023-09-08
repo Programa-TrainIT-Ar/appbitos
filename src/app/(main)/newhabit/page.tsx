@@ -1,10 +1,18 @@
 "use client"
 import { useState } from "react"
 import { Dropdown } from "primereact/dropdown"
+import { ToggleButton } from "primereact/togglebutton"
+import { InputText } from "primereact/inputtext"
 
 const NewHabit = () => {
 
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedGoal, setSelectedGoal] = useState(null);
+  const [checkedDay, setCheckedDay] = useState(false);
+  const [checkedWeek, setCheckedWeek] = useState(false);
+  const [checkedMonth, setCheckedMonth] = useState(false);
+  const [habitName, setHabitName] = useState<string>("");
+
+
   const countries = [
     { name: 'Tener mejor salud' },
     { name: 'Terminar carrera' },
@@ -13,7 +21,7 @@ const NewHabit = () => {
   ];
 
 
-  const selectedCountryTemplate = (option: any, props: any) => {
+  const selectedGoalTemplate = (option: any, props: any) => {
     if (option) {
       return (
         <div className="flex align-items-center">
@@ -24,7 +32,7 @@ const NewHabit = () => {
 
     return <span>{props.placeholder}</span>;
   };
-  const countryOptionTemplate = (option: any) => {
+  const goalOptionTemplate = (option: any) => {
     return (
       <div className="flex align-items-center">
         <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`mr-2 flag `} style={{ width: '18px' }} />
@@ -41,14 +49,26 @@ const NewHabit = () => {
       <h1>Crea un nuevo habito! </h1>
 
 
-      <div className="flex flex-column justify-content-center">
+      <div className="flex flex-column justify-content-center items-">
+
+
         <h2>Nombre</h2>
-        <input type="text" />
+        <InputText value={habitName} className="w-14rem" onChange={(e) => setHabitName(e.target.value)} />
 
         <h2>¿Pertenece a una meta?</h2>
-        <Dropdown value={selectedCountry} onChange={(e) => setSelectedCountry(e.value)} options={countries} optionLabel="name" placeholder="¿Cual es tu meta?"
-          filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem" />
+        <Dropdown value={selectedGoal} onChange={(e) => setSelectedGoal(e.value)} options={countries} optionLabel="name" placeholder="¿Cual es tu meta?"
+          filter valueTemplate={selectedGoalTemplate} itemTemplate={goalOptionTemplate} className="w-full md:w-14rem" />
 
+
+        <h2>¿Cada cuanto es este habito?</h2>
+        <div className=" flex justify-content-center gap-4 mt-4 flex-column align-items-center md:flex-row">
+          <ToggleButton onLabel="I confirm" offLabel="Dia" onIcon="pi pi-check" offIcon="pi pi-play"
+            checked={checkedDay} onChange={(e) => setCheckedDay(e.value)} className="w-9rem" />
+          <ToggleButton onLabel="I confirm" offLabel="Semana" onIcon="pi pi-check" offIcon="pi pi-step-forward-alt"
+            checked={checkedWeek} onChange={(e) => setCheckedWeek(e.value)} className="w-9rem" />
+          <ToggleButton onLabel="I confirm" offLabel="Mes" onIcon="pi pi-check" offIcon="pi pi-fast-forward"
+            checked={checkedMonth} onChange={(e) => setCheckedMonth(e.value)} className="w-9rem" />
+        </div>
 
 
       </div>
