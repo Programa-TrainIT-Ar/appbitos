@@ -62,12 +62,27 @@ const NewHabit = () => {
 
         <h2>¿Cada cuanto es este habito?</h2>
         <div className=" flex justify-content-center gap-4 mt-4 flex-column align-items-center md:flex-row">
-          <ToggleButton onLabel="I confirm" offLabel="Dia" onIcon="pi pi-check" offIcon="pi pi-play"
-            checked={checkedDay} onChange={(e) => setCheckedDay(e.value)} className="w-9rem" />
-          <ToggleButton onLabel="I confirm" offLabel="Semana" onIcon="pi pi-check" offIcon="pi pi-step-forward-alt"
-            checked={checkedWeek} onChange={(e) => setCheckedWeek(e.value)} className="w-9rem" />
-          <ToggleButton onLabel="I confirm" offLabel="Mes" onIcon="pi pi-check" offIcon="pi pi-fast-forward"
-            checked={checkedMonth} onChange={(e) => setCheckedMonth(e.value)} className="w-9rem" />
+          <ToggleButton onLabel="Cada 24 hs" offLabel="Dia" onIcon="pi pi-check" offIcon="pi pi-play"
+            checked={checkedDay} onChange={(e) => {
+              setCheckedDay(e.value)
+              setCheckedWeek(false)
+              setCheckedMonth(false)
+            }}
+            className="w-9rem" />
+          <ToggleButton onLabel="Cada 7 dias" offLabel="Semana" onIcon="pi pi-check" offIcon="pi pi-step-forward-alt"
+            checked={checkedWeek} onChange={(e) => {
+              setCheckedWeek(e.value)
+              setCheckedDay(false)
+              setCheckedMonth(false)
+
+            }} className="w-9rem" />
+          <ToggleButton onLabel="Cada 4 semanas" offLabel="Mes" onIcon="pi pi-check" offIcon="pi pi-fast-forward"
+            checked={checkedMonth} onChange={(e) => {
+              setCheckedMonth(e.value)
+              setCheckedDay(false)
+              setCheckedWeek(false)
+
+            }} className="w-9rem" />
         </div>
 
 
