@@ -59,16 +59,11 @@ const NewHabit = () => {
 
     <section>
 
-
-
-
       <div className="card flex flex-column justify-content-center align-items-center">
         <h1 className="font-medium">¡Crea un nuevo <span className="text-purple-400 font-bold">habito!</span></h1>
 
-
         <h2>¿Cual sera el nombre?</h2>
         <InputText value={habitName} className="w-14rem" onChange={(e) => setHabitName(e.target.value)} />
-
         <h2>¿Pertenece a una <span className="text-blue-500 font-bold">meta?</span></h2>
         <Dropdown value={selectedGoal} onChange={(e) => setSelectedGoal(e.value)} options={countries} optionLabel="name" placeholder="¿Cual es tu meta?"
           filter valueTemplate={selectedGoalTemplate} itemTemplate={goalOptionTemplate} className="w-full md:w-14rem" />
@@ -101,7 +96,6 @@ const NewHabit = () => {
 
         <h3 className="text-red-700 font-bold mb-4">Etiquetas</h3>
 
-
         <div className=" flex flex-wrap justify-content-center gap-3 mb-4 ">
           <div className="flex align-items-center">
             <Checkbox inputId="ingredient1" name="pizza" value="Salud" onChange={onIngredientsChange} checked={tags.includes('Salud')} />
@@ -120,17 +114,8 @@ const NewHabit = () => {
             <label htmlFor="ingredient4" className="ml-2">Espiritualidad</label>
           </div>
         </div>
-
-
         <Button type="button" label="Crear habito" icon="pi pi-send" badgeClassName="p-badge-danger" className="my-4" />
-
-
       </div>
-
-
-
-
-
     </section>
   )
 }
