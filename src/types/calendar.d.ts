@@ -1,3 +1,5 @@
+import { AppointmentModel } from '@devexpress/dx-react-scheduler';
+
 export interface CalendarType {
     user: User;
     dates: Task[];
@@ -5,10 +7,13 @@ export interface CalendarType {
 
 export interface Task {
     id: string;
-    date: Date;
+    startDate: Date;
+    endDate: Date;
+    allDay: boolean;
     title: string;
     description: string;
     priority: string;
+    rRule: string;
 }
 
 export interface User {

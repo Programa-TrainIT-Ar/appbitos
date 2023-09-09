@@ -1,81 +1,125 @@
-import { Carousel, CarouselPageChangeEvent } from 'primereact/carousel';
-import { CalendarState } from '../../types/calendar';
-import { useEffect, useState } from 'react';
-import TemplateCalendar from './TemplateCalendar';
-import ContextDialogProvider from './contexts/ContextDialog';
-import DialogModal from './dialog/DialogModal';
-import '../../styles/calendar/templateCalendar.scss';
+import { EditingState, ViewState, ChangeSet, IntegratedEditing, AppointmentForm as AppointmentFormScheduler, Changes } from '@devexpress/dx-react-scheduler';
+import {
+    Scheduler,
+    MonthView,
+    WeekView,
+    Toolbar,
+    DateNavigator,
+    DragDropProvider,
+    Appointments,
+    TodayButton,
+    AppointmentForm,
+    AppointmentTooltip,
+    ConfirmationDialog as ConfirmationDialogMaterial,
+    ViewSwitcher
+} from '@devexpress/dx-react-scheduler-material-ui';
+import { useContextTasks } from './contexts/ContextTasks';
+import { Task } from '../../types/calendar';
+import CalendarService from '../../service/CalendarService';
+import { faker } from '@faker-js/faker';
+import MyAppointmentForm from './MyAppointmentForm';
 
-const [DAY, MONTH, YEAR] = new Date().toLocaleDateString().split('/');
+type UpdateUI = 'YES' | 'NO';
 
 export default function Calendar() {
-    const [page, setPage] = useState(parseInt(MONTH) - 1);
-    const [yearState, setYearState] = useState(parseInt(YEAR));
-    const [calendarState, setCalendarState] = useState<CalendarState[] | null>(null);
+    const { tasks, handleContextAddTask, handleContextDeleteTask, handleContextEditTask, handleContextAdd_EditTask } = useContextTasks();
 
-    const month = Array.from({ length: 12 }, (_, index) => index);
-    const intl = new Intl.DateTimeFormat('es', { month: 'long' });
+    const COMMIT_ACTIONS = {
+        changed: async (changed: ChangeSet['changed'], update: UpdateUI) => {
+            if (!changed) return;
+            try {
+                const { response } = await CalendarService.editTask(changed);
+                console.log(changed);
 
-    function createCalendar() {
-        const calendar: CalendarState[] = month.map((monthKey) => {
-            const newDate = new Date(yearState, monthKey);
-            const monthName = intl.format(newDate);
-            const start = newDate.getDay();
-            const lastDayOfMonth = new Date(yearState, monthKey + 1, 0).getDate();
-            const prevLastDayOfMoth = monthKey !== 0 ? new Date(yearState, monthKey, 0).getDate() : new Date(yearState - 1, 12, 0).getDate();
-
-            return { monthName, start, lastDayOfMonth, year: yearState, prevLastDayOfMoth, monthKey };
-        });
-        return calendar;
-    }
-
-    useEffect(() => {
-        setCalendarState((prev) => {
-            if (prev) {
-                if (prev[0].year < yearState) {
-                    const newArr = [...prev, ...createCalendar()];
-                    return newArr;
-                } else {
-                    const newArr = [...createCalendar(), ...prev];
-                    setPage(12);
-
-                    return newArr;
-                }
-            } else {
-                return createCalendar();
+                if (response.status !== 200) throw new Error('error');
+                update === 'YES' && handleContextEditTask(changed);
+            } catch (error) {
+                console.log(error);
             }
-        });
-    }, [yearState]);
+        },
+        added: async (added: ChangeSet['added'], update: UpdateUI): Promise<Task | undefined> => {
+            const id = faker.string.uuid();
+            if (!added) return;
+            const { title, startDate, endDate, notes, allDay, rRule } = added;
 
-    const templateCalendar = (calendar: CalendarState) => {
-        return <TemplateCalendar calendar={calendar} />;
+            const newTask: Task = {
+                title,
+                startDate,
+                endDate,
+                id,
+                allDay,
+                description: notes,
+                rRule,
+                priority: 'low'
+            };
+
+            try {
+                const { response } = await CalendarService.addTask(newTask);
+
+                if (response.status !== 200) throw new Error('error');
+                update === 'YES' && handleContextAddTask(newTask);
+                return newTask;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        deleted: async (deleted: ChangeSet['deleted']) => {
+            if (!deleted || typeof deleted === 'number') return;
+
+            try {
+                const { response } = await CalendarService.deleteTask(deleted);
+
+                if (response.status !== 200) throw new Error('error');
+                handleContextDeleteTask(deleted);
+            } catch (error) {
+                console.log(error);
+            }
+        }
     };
 
-    const handleChange = async (e: CarouselPageChangeEvent) => {
-        if (e.page !== page) {
-            if (calendarState && e.page >= calendarState.length - 1) {
-                setYearState(calendarState[calendarState.length - 1].year + 1);
-                setPage(() => e.page);
-                return;
-            }
+    const handleCommitChanges = async ({ added, deleted, changed }: ChangeSet) => {
+        console.log(added, changed);
 
-            if (e.page === 0 && calendarState) {
-                setYearState(calendarState[0].year - 1);
-                setPage(() => 12);
-                return;
+        if (changed && added) {
+            const taskAdded = await COMMIT_ACTIONS.added(added, 'NO');
+            COMMIT_ACTIONS.changed(changed, 'NO');
+            if (taskAdded) {
+                handleContextAdd_EditTask(taskAdded, changed);
             }
         }
 
-        setPage(() => e.page);
+        if (changed && !added) {
+            COMMIT_ACTIONS.changed(changed, 'YES');
+        }
+
+        if (added && !changed) {
+            COMMIT_ACTIONS.added(added, 'YES');
+        }
+
+        if (deleted) {
+            COMMIT_ACTIONS.deleted(deleted);
+        }
     };
 
     return (
         <>
-            <ContextDialogProvider>
-                {calendarState && <Carousel value={calendarState} itemTemplate={templateCalendar} numVisible={1} numScroll={1} onPageChange={handleChange} showIndicators={false} page={page} orientation={'vertical'} />}
+            <Scheduler data={tasks?.dates} height={900}>
+                <ViewState defaultCurrentViewName="Month" />
+                <WeekView startDayHour={0} endDayHour={24} cellDuration={90} />
+                <MonthView />
+                <Toolbar />
+                <DateNavigator />
+                <TodayButton />
+                <EditingState onCommitChanges={handleCommitChanges} />
+                <Appointments />
+                <IntegratedEditing />
+                <DragDropProvider />
+                <AppointmentTooltip showCloseButton showOpenButton showDeleteButton />
+                <ConfirmationDialogMaterial />
+                <ViewSwitcher />
 
-                <DialogModal />
-            </ContextDialogProvider>
+                <MyAppointmentForm />
+            </Scheduler>
         </>
     );
 }

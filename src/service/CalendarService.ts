@@ -2,8 +2,14 @@ import { CalendarType, Task } from '../types/calendar';
 const BASE_URL = 'http://localhost:3004';
 
 const CalendarService = {
-    getCalendarDates: async (): Promise<CalendarType> => {
-        return fetch(`${BASE_URL}/calendario`).then((data) => data.json());
+    getCalendarDates: async (): Promise<CalendarType | undefined> => {
+        try {
+            const response = await fetch(`${BASE_URL}/calendario`);
+            const result = await response.json();
+            return result;
+        } catch (error) {
+            console.log(error);
+        }
     },
     addTask: async (newTask: Task) => {
         try {
@@ -27,12 +33,30 @@ const CalendarService = {
     deleteTask: async (taskId: string) => {
         return fetch(`${BASE_URL}/calendario/deleteTask`, {
             method: 'DELETE',
-            body: JSON.stringify({ taskId })
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({ id: taskId })
         })
             .then((data) => data.json())
-            .catch(() => {
-                throw new Error('Not Implemented endpoint');
+            .catch((error) => {
+                throw new Error(error.message);
             });
+    },
+    editTask: async (idWithEdition: { [key: string]: Partial<Task> }) => {
+        try {
+            const response = await fetch(`${BASE_URL}/calendario/editTask`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(idWithEdition)
+            });
+
+            return response.json();
+        } catch (error) {
+            throw new Error('error editando tareas');
+        }
     }
 };
 
