@@ -13,5 +13,5 @@ function createRandomHabit() {
 module.exports = {
   path: '/habits',
   method: 'GET',
-  template: createRandomHabit()
+  template: createRandomHabit(),
 };
