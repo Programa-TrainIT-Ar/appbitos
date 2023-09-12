@@ -1,23 +1,12 @@
-import { EditingState, ViewState, ChangeSet, IntegratedEditing, AppointmentForm as AppointmentFormScheduler, Changes } from '@devexpress/dx-react-scheduler';
-import {
-    Scheduler,
-    MonthView,
-    WeekView,
-    Toolbar,
-    DateNavigator,
-    DragDropProvider,
-    Appointments,
-    TodayButton,
-    AppointmentForm,
-    AppointmentTooltip,
-    ConfirmationDialog as ConfirmationDialogMaterial,
-    ViewSwitcher
-} from '@devexpress/dx-react-scheduler-material-ui';
+import { EditingState, ViewState, ChangeSet, IntegratedEditing } from '@devexpress/dx-react-scheduler';
+import { Scheduler, MonthView, WeekView, Toolbar, DateNavigator, DragDropProvider, Appointments, TodayButton, AppointmentTooltip, ConfirmationDialog as ConfirmationDialogMaterial, DayView } from '@devexpress/dx-react-scheduler-material-ui';
 import { useContextTasks } from './contexts/ContextTasks';
 import { Task } from '../../types/calendar';
 import CalendarService from '../../service/CalendarService';
 import { faker } from '@faker-js/faker';
 import MyAppointmentForm from './MyAppointmentForm';
+
+import MyViewSwitcher from './MyViewSwitcher';
 
 type UpdateUI = 'YES' | 'NO';
 
@@ -29,7 +18,6 @@ export default function Calendar() {
             if (!changed) return;
             try {
                 const { response } = await CalendarService.editTask(changed);
-                console.log(changed);
 
                 if (response.status !== 200) throw new Error('error');
                 update === 'YES' && handleContextEditTask(changed);
@@ -104,9 +92,10 @@ export default function Calendar() {
     return (
         <>
             <Scheduler data={tasks?.dates} height={900}>
-                <ViewState defaultCurrentViewName="Month" />
+                <ViewState defaultCurrentViewName="" />
                 <WeekView startDayHour={0} endDayHour={24} cellDuration={90} />
                 <MonthView />
+                <DayView />
                 <Toolbar />
                 <DateNavigator />
                 <TodayButton />
@@ -116,8 +105,7 @@ export default function Calendar() {
                 <DragDropProvider />
                 <AppointmentTooltip showCloseButton showOpenButton showDeleteButton />
                 <ConfirmationDialogMaterial />
-                <ViewSwitcher />
-
+                <MyViewSwitcher />
                 <MyAppointmentForm />
             </Scheduler>
         </>
