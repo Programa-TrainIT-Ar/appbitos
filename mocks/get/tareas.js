@@ -29,6 +29,23 @@ const mock = {
             title: '2VOap3wJyujBr',
             description: 'GrU#(}k/nI5^HAL2VwH.ZHm@/$C?kClK;*E)0lVEGex.B|Fk-ZhrJnimuP9Zt`UqY:pfr=]<EBRTBDFHFtXx1&Vw4FKNY6CF>/>DAn#y5;Gx.Z`>FT$9".t?qN/}gc?3iY`.]%"Xw+7TRwP-A6+|o:c(=D\'ox"#s,\\6)x88igBvQ$@9f^ng$/',
             priority: 'medium'
+        },
+        {
+            title: 'aoeaoe',
+            startDate: '2023-10-13T03:00:00.000Z',
+            endDate: '2023-10-14T03:00:00.000Z',
+            id: 'fe2059d2-c476-4f17-bc4b-8dbc086d1911',
+            allDay: true,
+            priority: 'low',
+            notes: 'aoe'
+        },
+        {
+            title: 'task 1 ',
+            startDate: '2023-09-19T03:00:00.000Z',
+            endDate: '2023-09-20T03:00:00.000Z',
+            id: 'af9f6dc6-e6f9-4615-821d-bd20dab447be',
+            allDay: true,
+            priority: 'low'
         }
     ]
 };

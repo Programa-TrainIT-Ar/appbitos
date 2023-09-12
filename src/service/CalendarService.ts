@@ -2,13 +2,13 @@ import { CalendarType, Task } from '../types/calendar';
 const BASE_URL = 'http://localhost:3004';
 
 const CalendarService = {
-    getCalendarDates: async (): Promise<CalendarType | undefined> => {
+    getCalendarDates: async (): Promise<CalendarType | null> => {
         try {
             const response = await fetch(`${BASE_URL}/calendario`);
-            const result = await response.json();
+            const result: CalendarType = await response.json();
             return result;
         } catch (error) {
-            console.log(error);
+            return null;
         }
     },
     addTask: async (newTask: Task) => {
