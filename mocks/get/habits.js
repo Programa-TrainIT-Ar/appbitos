@@ -13,5 +13,7 @@ function createRandomHabit() {
 module.exports = {
   path: '/habits',
   method: 'GET',
-  template: createRandomHabit(),
+  template: faker.helpers.multiple(createRandomHabit, {
+    count: 5
+  }),
 };
