@@ -6,6 +6,9 @@ import Image from "next/image";
 import MedalsService from "../../../service/MedalsService";
 import { Toolbar } from "primereact/toolbar";
 import { InputSwitch } from "primereact/inputswitch";
+import { setUser, unSetUser } from '../../../reduxtoolkit/feature/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const MedalsPage = () => {
 
@@ -20,6 +23,8 @@ const MedalsPage = () => {
     dificulty: 2,
     obtained: false
   })
+  const user = useSelector((state: any) => state.user);
+
 
   useEffect(() => {
     MedalsService.getMedals().then(setMedals)
