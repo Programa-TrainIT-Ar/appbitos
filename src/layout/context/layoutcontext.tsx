@@ -45,7 +45,6 @@ export const LayoutProvider = ({ children }: ChildContainerProps) => {
     const isDesktop = () => {
         return window.innerWidth > 991;
     };
-
     const value: LayoutContextProps = {
         layoutConfig,
         setLayoutConfig,
