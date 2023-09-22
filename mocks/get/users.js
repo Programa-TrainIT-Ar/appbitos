@@ -1,4 +1,4 @@
-const {faker} = require("@faker-js/faker");
+const { faker } = require('@faker-js/faker');
 
 function createRandomUser() {
     return {
@@ -8,7 +8,7 @@ function createRandomUser() {
         avatar: faker.image.avatar(),
         password: faker.internet.password(),
         birthdate: faker.date.birthdate(),
-        registeredAt: faker.date.past(),
+        registeredAt: faker.date.past()
     };
 }
 
@@ -16,6 +16,6 @@ module.exports = {
     path: '/users',
     method: 'GET',
     template: faker.helpers.multiple(createRandomUser, {
-        count: 5,
+        count: 5
     })
 };

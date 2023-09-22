@@ -1,15 +1,8 @@
-"use client"
-import React from "react";
-
+'use client';
+import React from 'react';
 
 const Main = () => {
-
-
-    return (
-        <div className="">
-
-        </div>
-    );
+    return <div className=""></div>;
 };
 
 export default Main;
