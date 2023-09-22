@@ -1,13 +1,12 @@
-'use client'
-import {usePathname, useSearchParams} from 'next/navigation';
+'use client';
+import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import {Ripple} from 'primereact/ripple';
-import {classNames} from 'primereact/utils';
-import React, {useContext, useEffect} from 'react';
-import {CSSTransition} from 'react-transition-group';
-import {MenuContext} from './context/menucontext';
-import {AppMenuItemProps} from '../types/types';
-
+import { Ripple } from 'primereact/ripple';
+import { classNames } from 'primereact/utils';
+import React, { useContext, useEffect } from 'react';
+import { CSSTransition } from 'react-transition-group';
+import { MenuContext } from './context/menucontext';
+import { AppMenuItemProps } from '../types/types';
 
 const AppMenuitem = (props: AppMenuItemProps) => {
     const pathname = usePathname();
@@ -23,10 +22,9 @@ const AppMenuitem = (props: AppMenuItemProps) => {
         }
     };
 
-
     useEffect(() => {
         onRouteChange(pathname);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathname, searchParams]);
 
     const itemClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {

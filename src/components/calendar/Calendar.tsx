@@ -1,37 +1,55 @@
-import { EditingState, ViewState, ChangeSet, IntegratedEditing } from '@devexpress/dx-react-scheduler';
-import { Scheduler, MonthView, WeekView, Toolbar, DateNavigator, DragDropProvider, Appointments, TodayButton, AppointmentTooltip, ConfirmationDialog as ConfirmationDialogMaterial, DayView } from '@devexpress/dx-react-scheduler-material-ui';
+import { EditingState, ViewState, ChangeSet } from '@devexpress/dx-react-scheduler';
+import { Scheduler, WeekView, MonthView, Toolbar, DragDropProvider, Appointments, DayView } from '@devexpress/dx-react-scheduler-material-ui';
 import { useContextTasks } from './contexts/ContextTasks';
 import { Task } from '../../types/calendar';
 import CalendarService from '../../service/CalendarService';
 import { faker } from '@faker-js/faker';
+import TodayButtonComponent from './TodayButtonComponent';
+import { Toast, ToastMessage } from 'primereact/toast';
+import { useRef } from 'react';
+import EditRecurrenceComponent from './EditRecurrenceComponent';
+import DateNavigatorComponent from './DateNavigatorComponent';
+import DialogComponent from './DialogComponent';
+import ConfirmationDialogComponent from './ConfirmationDialogComponent';
+import MyViewSwitcher from './MyViewSwitcher';
 import MyAppointmentForm from './MyAppointmentForm';
 
-import MyViewSwitcher from './MyViewSwitcher';
-
 type UpdateUI = 'YES' | 'NO';
+type TypeToastShow = 'Edit' | 'deleted';
 
 export default function Calendar() {
     const { tasks, handleContextAddTask, handleContextDeleteTask, handleContextEditTask, handleContextAdd_EditTask } = useContextTasks();
+    const toastRef = useRef<Toast | null>(null);
 
     const COMMIT_ACTIONS = {
-        changed: async (changed: ChangeSet['changed'], update: UpdateUI) => {
-            if (!changed) return;
+        changed: async (changed: ChangeSet['changed'], update: UpdateUI, typeToast: TypeToastShow): Promise<ToastMessage> => {
+            if (!changed) return { severity: 'error', summary: 'Error', detail: 'Hubo un error al editar la tarea' };
             try {
                 const { response } = await CalendarService.editTask(changed);
 
                 if (response.status !== 200) throw new Error('error');
-                update === 'YES' && handleContextEditTask(changed);
+                if (update === 'YES') {
+                    handleContextEditTask(changed);
+                    if (typeToast === 'deleted') {
+                        return { severity: 'info', summary: 'Eliminada', detail: 'Se elimino correctamente la tarea' };
+                    } else {
+                        return { severity: 'success', summary: 'Editada', detail: 'La tarea se edito correctamente' };
+                    }
+                } else {
+                    return { severity: 'success', summary: 'Editada', detail: 'La tarea se edito correctamente' };
+                }
             } catch (error) {
-                console.log(error);
+                return { severity: 'error', summary: 'Error', detail: 'Hubo un error al editar la tarea' };
             }
         },
-        added: async (added: ChangeSet['added'], update: UpdateUI): Promise<Task | undefined> => {
+        added: async (added: ChangeSet['added'], update: UpdateUI): Promise<{ newTask: Task | undefined; toastMessage: ToastMessage }> => {
             const id = faker.string.uuid();
-            if (!added) return;
+            if (!added) return { toastMessage: { severity: 'error', summary: 'Error', detail: 'Hubo un error al Crear la tarea' }, newTask: undefined };
+
             const { title, startDate, endDate, notes, allDay, rRule } = added;
 
             const newTask: Task = {
-                title,
+                title: title === undefined || title === '' ? '(Sin Titulo)' : title,
                 startDate,
                 endDate,
                 id,
@@ -46,65 +64,85 @@ export default function Calendar() {
 
                 if (response.status !== 200) throw new Error('error');
                 update === 'YES' && handleContextAddTask(newTask);
-                return newTask;
+                return { toastMessage: { severity: 'success', summary: 'Creada', detail: 'La tarea se creo correctamente' }, newTask };
             } catch (error) {
-                console.log(error);
+                return { toastMessage: { severity: 'error', summary: 'Error', detail: 'Hubo un error al Crear la tarea' }, newTask: undefined };
             }
         },
-        deleted: async (deleted: ChangeSet['deleted']) => {
-            if (!deleted || typeof deleted === 'number') return;
+        deleted: async (deleted: ChangeSet['deleted']): Promise<ToastMessage> => {
+            if (!deleted || typeof deleted === 'number') return { severity: 'error', summary: 'Error', detail: 'Hubo un error al borrar la tarea' };
 
             try {
                 const { response } = await CalendarService.deleteTask(deleted);
 
                 if (response.status !== 200) throw new Error('error');
                 handleContextDeleteTask(deleted);
+                return { severity: 'info', summary: 'Eliminada', detail: 'Se elimino correctamente la tarea' };
             } catch (error) {
-                console.log(error);
+                return { severity: 'error', summary: 'Error', detail: 'Hubo un error al borrar la tarea' };
             }
         }
     };
 
     const handleCommitChanges = async ({ added, deleted, changed }: ChangeSet) => {
-        console.log(added, changed);
-
         if (changed && added) {
             const taskAdded = await COMMIT_ACTIONS.added(added, 'NO');
-            COMMIT_ACTIONS.changed(changed, 'NO');
-            if (taskAdded) {
-                handleContextAdd_EditTask(taskAdded, changed);
+            const message = await COMMIT_ACTIONS.changed(changed, 'NO', 'Edit');
+            if (taskAdded.newTask) {
+                toastRef.current?.show(message);
+                handleContextAdd_EditTask(taskAdded.newTask, changed);
             }
         }
 
         if (changed && !added) {
-            COMMIT_ACTIONS.changed(changed, 'YES');
+            if (!changed[Object.keys(changed)[0]].exDate) {
+                const message = await COMMIT_ACTIONS.changed(changed, 'YES', 'Edit');
+                toastRef.current?.show(message);
+            } else {
+                const message = await COMMIT_ACTIONS.changed(changed, 'YES', 'deleted');
+                toastRef.current?.show(message);
+            }
         }
 
         if (added && !changed) {
-            COMMIT_ACTIONS.added(added, 'YES');
+            const message = await COMMIT_ACTIONS.added(added, 'YES');
+            toastRef.current?.show(message.toastMessage);
         }
 
         if (deleted) {
-            COMMIT_ACTIONS.deleted(deleted);
+            const message = await COMMIT_ACTIONS.deleted(deleted);
+            toastRef.current?.show(message);
         }
+    };
+
+    const AppointmentsContainer = (props: Appointments.AppointmentProps) => {
+        return <Appointments.Appointment {...props} className="bg-primary" />;
     };
 
     return (
         <>
+            <Toast ref={toastRef} />
+
             <Scheduler data={tasks?.dates} height={900}>
-                <ViewState defaultCurrentViewName="" />
-                <WeekView startDayHour={0} endDayHour={24} cellDuration={90} />
+                <ViewState defaultCurrentViewName="Month" />
+                <WeekView />
                 <MonthView />
                 <DayView />
                 <Toolbar />
-                <DateNavigator />
-                <TodayButton />
+                <DateNavigatorComponent />
+                <TodayButtonComponent />
+                <Appointments appointmentComponent={AppointmentsContainer} />
                 <EditingState onCommitChanges={handleCommitChanges} />
-                <Appointments />
-                <IntegratedEditing />
-                <DragDropProvider />
-                <AppointmentTooltip showCloseButton showOpenButton showDeleteButton />
-                <ConfirmationDialogMaterial />
+                <EditRecurrenceComponent />
+                <DragDropProvider
+                    draftAppointmentComponent={(e) => {
+                        const { style: styles, ...rest } = e;
+
+                        return <DragDropProvider.DraftAppointment style={{ background: 'var(--primary-color)', ...styles }} {...rest}></DragDropProvider.DraftAppointment>;
+                    }}
+                />
+                <DialogComponent />
+                <ConfirmationDialogComponent />
                 <MyViewSwitcher />
                 <MyAppointmentForm />
             </Scheduler>

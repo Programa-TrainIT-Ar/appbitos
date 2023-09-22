@@ -19,7 +19,7 @@ const CalendarPage = () => {
         <>
             {dates && (
                 <ContextTasksProvider propTasks={dates}>
-                    <div className="w-screen top-1 left-0 absolute sm:relative sm:w-full sm:max-w-full flex h-auto justify-content-center">
+                    <div className="w-screen -m-5  sm:m-auto sm:w-full  h-auto" style={{ maxWidth: '1300px' }}>
                         <Calendar />
                     </div>
                 </ContextTasksProvider>

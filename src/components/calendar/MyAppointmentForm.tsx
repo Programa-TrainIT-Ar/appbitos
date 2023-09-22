@@ -1,30 +1,33 @@
 import { AppointmentForm } from '@devexpress/dx-react-scheduler-material-ui';
 import { Button } from 'primereact/button';
-import { useState } from 'react';
+
+interface MyCommandButtonProps extends AppointmentForm.CommandButtonProps {
+    disabled?: boolean;
+}
 
 export default function MyAppointmentForm() {
-    const [buttonVisibility, setButtonVisibility] = useState(false);
-
-    const handleClick = () => {
-        alert('no implementado, la idea es que elimine todas las fechas repetidas si  existen, y no solo una');
-    };
     return (
         <>
             <AppointmentForm
-                onAppointmentDataChange={(e) => setButtonVisibility(typeof e.rRule !== 'undefined')}
-                commandButtonComponent={({ id, onExecute, getMessage }) => {
-                    if (id === 'deleteButton') {
-                        return (
-                            <>
-                                {buttonVisibility && <Button label="all repeat" icon="pi pi-trash22, 213214" outlined onClick={handleClick} />}
-                                {/* @ts-ignore */}
-                                <AppointmentForm.CommandButton onExecute={onExecute} getMessage={getMessage} id={id} />
-                            </>
-                        );
-                    }
+                commandButtonComponent={({ id, onExecute, disabled }: MyCommandButtonProps) => {
+                    const ADAPTER = {
+                        deleteButton: { icon: 'pi pi-trash', label: '', tooltip: 'Borrar Tarea' },
+                        saveButton: { icon: undefined, label: 'SAVE', tooltip: 'Guardar Tarea', disabled: 'disabled' },
+                        cancelButton: { icon: 'pi pi-times', label: '', tooltip: 'Cerrar' }
+                    };
 
-                    /* @ts-ignore */
-                    return <AppointmentForm.CommandButton onExecute={onExecute} id={id} getMessage={getMessage} />;
+                    return (
+                        <Button
+                            onClick={onExecute}
+                            icon={ADAPTER[id].icon}
+                            label={ADAPTER[id].label}
+                            outlined
+                            style={id === 'cancelButton' ? { position: 'absolute', bottom: 0, left: '2rem' } : { marginLeft: '1.1rem' }}
+                            tooltipOptions={{ position: 'bottom' }}
+                            tooltip={ADAPTER[id].tooltip}
+                            disabled={disabled ?? false}
+                        />
+                    );
                 }}
             />
         </>

@@ -3,18 +3,17 @@ import { Dropdown } from 'primereact/dropdown';
 import { ViewSwitcher } from '@devexpress/dx-react-scheduler';
 
 export default function MyViewSwitcher() {
-    const SwicherComponent = (props: ViewSwitcher.SwitcherProps) => {
-        const [nameView, setNameView] = useState({ name: 'Week', displayName: 'Week' });
-        console.log(nameView);
+    const [nameView, setNameView] = useState({ name: 'Month', displayName: 'Month' });
 
+    const SwicherComponent = ({ availableViews, onChange }: ViewSwitcher.SwitcherProps) => {
         return (
             <Dropdown
                 value={nameView}
                 onChange={(e) => {
                     setNameView(e.target.value);
-                    props.onChange(e.value.name);
+                    onChange(e.value.name);
                 }}
-                options={props.availableViews}
+                options={availableViews}
                 optionLabel="name"
                 className="w-8rem"
             />
