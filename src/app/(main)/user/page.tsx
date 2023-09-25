@@ -19,7 +19,6 @@ const DetalleUsuario = () => {
     })
   }, []);
 
-
   // TODO remove
   const tareas = [
     {
