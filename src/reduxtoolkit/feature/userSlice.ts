@@ -1,12 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
-const initialState = {
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../store";
+
+type loggedUser = {
+  id: string,
+  avatar: string,
+  username: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  birthdate: string,
+}
+
+
+const initialState: loggedUser = {
   id: '',
   email: '',
   avatar: '',
   username: '',
   firstName: '',
   lastName: '',
-  password: '',
   birthdate: '',
 };
 
@@ -14,14 +26,13 @@ export const userSlice = createSlice({
   name: "user",
   initialState: initialState,
   reducers: {
-    setUser: (state, action) => {
+    setUser: (state, action: PayloadAction<loggedUser>) => {
       state.id = action.payload.id;
       state.email = action.payload.email;
       state.avatar = action.payload.avatar;
       state.username = action.payload.username;
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
-      state.password = action.payload.password;
       state.birthdate = action.payload.birthdate;
     },
 
@@ -32,7 +43,6 @@ export const userSlice = createSlice({
       state.username = '';
       state.firstName = '';
       state.lastName = '';
-      state.password = '';
       state.birthdate = ''
     },
   },
@@ -41,5 +51,5 @@ export const userSlice = createSlice({
 export const { setUser, unSetUser } = userSlice.actions;
 
 const userReducer = userSlice.reducer;
-
+export const selectUser = (state: RootState) => state.user
 export default userReducer;

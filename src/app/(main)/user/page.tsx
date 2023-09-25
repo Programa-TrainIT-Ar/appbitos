@@ -6,14 +6,12 @@ import { Card } from "primereact/card";
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import '../../../styles/user.scss';
 import UsersService from "../../../service/UsersService";
-import { useDispatch, useSelector } from 'react-redux';
-import { setUser, unSetUser } from '../../../reduxtoolkit/feature/userSlice';
+import { useAppSelector, useAppDispatch } from '../../../reduxtoolkit/hooks';
+import { selectUser, setUser, unSetUser } from '../../../reduxtoolkit/feature/userSlice';
 
 const DetalleUsuario = () => {
-  // const [user, setUser] = useState<User>();
-  const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.user);
-
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
     UsersService.getUserDetails().then(data => {
@@ -21,11 +19,6 @@ const DetalleUsuario = () => {
     })
   }, []);
 
-
-
-  const handleLogout = () => {
-    dispatch(unSetUser());
-  };
 
   // TODO remove
   const tareas = [

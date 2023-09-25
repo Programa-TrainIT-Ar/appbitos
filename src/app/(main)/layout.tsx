@@ -1,7 +1,7 @@
 "use client"
 import { Provider } from 'react-redux'
 import Layout from "../../layout/layout";
-import store from '../../reduxtoolkit/store.jsx'
+import { store } from '../../reduxtoolkit/store';
 
 interface AppLayoutProps {
   children: React.ReactNode;
