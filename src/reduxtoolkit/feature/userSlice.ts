@@ -1,15 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { loggedUser } from "../../types/user";
 
-type loggedUser = {
-  id: string,
-  avatar: string,
-  username: string,
-  firstName: string,
-  lastName: string,
-  email: string,
-  birthdate: string,
-}
 
 
 const initialState: loggedUser = {
