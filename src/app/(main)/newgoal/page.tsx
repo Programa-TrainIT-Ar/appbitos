@@ -1,10 +1,17 @@
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
-const newGoal = () => {
+import GoalServices from '../../../service/GoalService'; 
+import { Goal } from '../../../types/goals';
+
+const NewGoal = () => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [task, setTask] = useState('');
+
 
   const options = [
     { label: 'Opción 1', value: 'opcion1' },
@@ -12,64 +19,65 @@ const newGoal = () => {
     { label: 'Opción 3', value: 'opcion3' },
   ];
 
-  /*
-  //ESTILOS PARA LA TARJETA NUEVA META
-  const headerStyle = {
-    marginBottom: '35px',
-  };
-  const labelStyle = {
-    margin: '0',
-    color: '#929292',
-    fontSize: '2rem'
-  };
-  const hrStyle = {
-    border: '0',
-    height: '1px',
-    background: '#ccc',
-    marginTop: '1px'
-  };
-  const inputStyle = {
-    width: '100%',
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-  };
-  */
+    const newGoal: Goal = { title, description, task }; 
+    console.log("Datos a enviar: ", newGoal)
+
+    setTitle('');
+    setDescription('');
+    setTask('');
+
+    try {
+      const createdGoal = await GoalServices.createGoal(newGoal);
+      console.log('Meta creada:', createdGoal);
+    } catch (error) {
+      console.error('Error al crear la meta:', error);
+    }
+  }
+
   return (
-
-
-    <div className="flex justify-content-center flex-column w-20rem">
+    <div className="m-auto flex justify-content-center flex-column w-20rem">
       <h2>Nueva Meta</h2>
-      
-      <form>
-      <div className="flex justify-content-center flex-column py-4">
-        <label htmlFor="titulo">Título</label>
-        <InputText
-          id="titulo"
-          placeholder="Escribe un título..."
-        />
-      </div>
-
-      <div className="flex justify-content-center flex-column py-4">
-        <label htmlFor="descripcion">Descripción</label>
-        <InputTextarea
-          id="descripcion"
-          rows={5}
-         />
-      </div>
-
-      <div className="flex justify-content-center flex-column py-4">
-        <label htmlFor="tareas">Hay tareas asignadas a esta meta</label>
-        <Dropdown
-          id="tareas"
-          options={options}
-          placeholder="Selecciona una opción"
-        />
-      </div>
-      <div className='flex justify-content-end'>
-        <Button label="Submit" />
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="flex justify-content-center flex-column py-4">
+          <label htmlFor="titulo">Título</label>
+          <InputText
+            id="titulo"
+            placeholder="Escribe un título..."
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+        <div className="flex justify-content-center flex-column py-4">
+          <label htmlFor="descripcion">Descripción</label>
+          <InputTextarea
+            id="descripcion"
+            placeholder="Escribe una descripcion..."
+            rows={5}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div className="flex justify-content-center flex-column py-4">
+          <label htmlFor="tareas">Hay tareas asignadas a esta meta</label>
+          <Dropdown
+            id="tareas"
+            options={options}
+            placeholder="Selecciona una opción"
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
+          />
+        </div>
+        <div className='flex justify-content-end mb-8'>
+          <Button type="submit" label="Submit" />
+        </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default newGoal
+export default NewGoal;
+
+
