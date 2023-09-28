@@ -7,36 +7,11 @@ import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Goal, SimpleTask, ComposedTask } from '../../../types/goals';
 
 
-// Define los tipos adecuados para las estructuras de datos
-// type SimpleTask = {
-//   id: string;
-//   name: string;
-//   description: string;
-//   start_date: string;
-//   end_date: string;
-//   status: boolean;
-// };
-// import { ComposedTask } from '../../../types/goals';
-
-// type ComposedTask = {
-//   id: string;
-//   nombre: string;
-//   status: boolean;
-//   simpleTasks: SimpleTask[];
-// };
-
-// type Goal = {
-//   id: string;
-//   goalName: string;
-//   status: boolean;
-//   composedTasks: ComposedTask[];
-// };
 
 const Metas = () => {
   const [metas, setMetas] = useState<Goal[]>([]);
 
   useEffect(() => {
-    // Llamada al servicio para obtener las metas
     goalsService.getGoals().then(data => setMetas(data));
   }, []);
 
@@ -86,20 +61,6 @@ const Metas = () => {
     e.preventDefault()
     e.stopPropagation()
     goalsService.deleteSimpleTask(gid, cid, sid).then(() => goalsService.getGoals().then(data => setMetas(data)))
-
-    // const newMetas = metas.map((meta) => {
-    //   let newSimpletask = meta.composedTasks[0].simpleTasks
-    //   if (newSimpletask.some((task) => {
-    //     task.id == id
-    //   })) {
-    //     newSimpletask = newSimpletask.filter((task) => {
-    //       task.id == id
-    //     })
-    //   }
-    //   meta.composedTasks[0].simpleTasks = newSimpletask
-    //   return { ...meta }
-    // })
-    // setMetas(newMetas)
   }
 
   return (
@@ -133,8 +94,10 @@ const Metas = () => {
         onClick={toggleMenu}
         style={{ width: 'auto' }}
       />
+      
     </div>
   );
+  
 };
 
 export default Metas;
