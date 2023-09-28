@@ -4,14 +4,13 @@ import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
-import GoalServices from '../../../service/GoalService'; 
+import GoalServices from '../../../service/GoalService';
 import { Goal } from '../../../types/goals';
 
 const NewGoal = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [task, setTask] = useState('');
-
 
   const options = [
     { label: 'Opción 1', value: 'opcion1' },
@@ -22,18 +21,16 @@ const NewGoal = () => {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const newGoal: Goal = { title, description, task }; 
-    console.log("Datos a enviar: ", newGoal)
+    const newGoal: Goal = { title, description, task };
 
     setTitle('');
     setDescription('');
     setTask('');
 
     try {
-      const createdGoal = await GoalServices.createGoal(newGoal);
-      console.log('Meta creada:', createdGoal);
+      await GoalServices.createGoal(newGoal)
     } catch (error) {
-      console.error('Error al crear la meta:', error);
+      console.log(error)
     }
   }
 
