@@ -1,6 +1,5 @@
 export interface Task {
-    id: number;
-    title: string;
-    description: string;
-    tag: boolean
+    id: string;
+    taskName: string;
+    relatedGoal: string
   }
