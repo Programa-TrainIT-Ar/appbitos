@@ -14,13 +14,24 @@ const NewGoal = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [task, setTask] = useState('');
-  const [availableTasks, setAvailableTasks ] = useState<Task[]>([])
+  const [availableTasks, setAvailableTasks] = useState<Task[]>([])
+  const [options, setOptions] = useState<any>([])
 
 
   useEffect(() => {
-      TaskService.getTasks()
-      .then(data => setAvailableTasks(data))
-  })
+    TaskService.getTasks()
+      .then(data => {
+        const newOptions: object[] = []
+        data.forEach(el => {
+          newOptions.push({
+            label: el.taskName,
+            value: el.taskName
+          })
+          setOptions(newOptions)
+        })
+      })
+
+  }, [])
 
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -66,7 +77,7 @@ const NewGoal = () => {
           <label htmlFor="tareas">Hay tareas asignadas a esta meta</label>
           <Dropdown
             id="tareas"
-            options={}
+            options={options}
             placeholder="Selecciona una opción"
             value={task}
             onChange={(e) => setTask(e.target.value)}
