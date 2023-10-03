@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
@@ -8,7 +8,7 @@ import GoalServices from '../../../service/GoalService';
 import { Goal } from '../../../types/goals';
 import TaskService from '../../../service/TaskService';
 import { Task } from '../../../types/tasks';
-
+import { Toast } from 'primereact/toast';
 
 const NewGoal = () => {
   const [title, setTitle] = useState('');
@@ -16,6 +16,8 @@ const NewGoal = () => {
   const [task, setTask] = useState('');
   const [availableTasks, setAvailableTasks] = useState<Task[]>([])
   const [options, setOptions] = useState<any>([])
+
+  const toast = useRef<any>(null);
 
 
   useEffect(() => {
@@ -33,6 +35,26 @@ const NewGoal = () => {
 
   }, [])
 
+  /*
+  //YO TENIA LA IDEA QUE ESTO ERA CORRECTO PERO CAPAZ SE PUEDE HACER DE OTRA MANERA
+  
+  useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const data = await TaskService.getTasks();
+      const newOptions: { label: string; value: string }[] = data.map(el => ({
+        label: el.taskName,
+        value: el.taskName
+      }));
+      setOptions(newOptions);
+    } catch (error) {
+      console.error("Error al obtener tareas:", error);
+    }
+  }
+  fetchData();
+}, []);
+
+  */
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -45,8 +67,10 @@ const NewGoal = () => {
 
     try {
       await GoalServices.createGoal(newGoal)
+      toast.current.show({severity:'success', summary:'Éxito', detail:'La meta se creó correctamente'}); // Mostrar mensaje de éxito
     } catch (error) {
       console.log(error)
+      toast.current.show({severity:'error', summary:'Error', detail:'Hubo un error al crear la meta'}); // Mostrar mensaje de error
     }
   }
 
@@ -76,7 +100,7 @@ const NewGoal = () => {
         <div className="flex justify-content-center flex-column py-4">
           <label htmlFor="tareas">Hay tareas asignadas a esta meta</label>
           <Dropdown
-            id="tareas"
+            id="tarea"
             options={options}
             placeholder="Selecciona una opción"
             value={task}
@@ -84,7 +108,10 @@ const NewGoal = () => {
           />
         </div>
         <div className='flex justify-content-end mb-8'>
-          <Button type="submit" label="Submit" />
+        <Toast ref={toast}/>
+          <Button 
+          type="submit" 
+          label="Submit" />
         </div>
       </form>
     </div>
