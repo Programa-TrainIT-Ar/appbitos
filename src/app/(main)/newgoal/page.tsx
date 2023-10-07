@@ -14,47 +14,20 @@ const NewGoal = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [task, setTask] = useState('');
-  const [availableTasks, setAvailableTasks] = useState<Task[]>([])
-  const [options, setOptions] = useState<any>([])
-
+  const [options, setOptions] = useState<{ label: string, value: string }[]>([])
   const toast = useRef<any>(null);
-
 
   useEffect(() => {
     TaskService.getTasks()
       .then(data => {
-        const newOptions: object[] = []
-        data.forEach(el => {
-          newOptions.push({
-            label: el.taskName,
-            value: el.taskName
-          })
-          setOptions(newOptions)
-        })
-      })
+        const newOptions = data.map(el => ({
+          label: el.taskName,
+          value: el.taskName
+        }));
+        setOptions(newOptions);
+      });
+  }, []);
 
-  }, [])
-
-  /*
-  //YO TENIA LA IDEA QUE ESTO ERA CORRECTO PERO CAPAZ SE PUEDE HACER DE OTRA MANERA
-  
-  useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const data = await TaskService.getTasks();
-      const newOptions: { label: string; value: string }[] = data.map(el => ({
-        label: el.taskName,
-        value: el.taskName
-      }));
-      setOptions(newOptions);
-    } catch (error) {
-      console.error("Error al obtener tareas:", error);
-    }
-  }
-  fetchData();
-}, []);
-
-  */
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -67,10 +40,9 @@ const NewGoal = () => {
 
     try {
       await GoalServices.createGoal(newGoal)
-      toast.current.show({severity:'success', summary:'Éxito', detail:'La meta se creó correctamente'}); // Mostrar mensaje de éxito
+      toast.current.show({ severity: 'success', summary: 'Éxito', detail: 'La meta se creó correctamente' }); // Mostrar mensaje de éxito
     } catch (error) {
-      console.log(error)
-      toast.current.show({severity:'error', summary:'Error', detail:'Hubo un error al crear la meta'}); // Mostrar mensaje de error
+      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear la meta' }); // Mostrar mensaje de error
     }
   }
 
@@ -108,10 +80,10 @@ const NewGoal = () => {
           />
         </div>
         <div className='flex justify-content-end mb-8'>
-        <Toast ref={toast}/>
-          <Button 
-          type="submit" 
-          label="Submit" />
+          <Toast ref={toast} />
+          <Button
+            type="submit"
+            label="Submit" />
         </div>
       </form>
     </div>
