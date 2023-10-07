@@ -34,7 +34,11 @@ const NewGoal = () => {
 
 
     if (!title || !description || !task) {
-      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Por favor, completa todos los campos' });
+      toast.current.show({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Por favor, completa todos los campos'
+      });
       return;
     }
 
@@ -46,9 +50,9 @@ const NewGoal = () => {
 
     try {
       await GoalServices.createGoal(newGoal)
-      toast.current.show({ severity: 'success', summary: 'Éxito', detail: 'La meta se creó correctamente' }); // Mostrar mensaje de éxito
+      toast.current.show({ severity: 'success', summary: 'Éxito', detail: 'La meta se creó correctamente' });
     } catch (error) {
-      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear la meta' }); // Mostrar mensaje de error
+      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Hubo un error al crear la meta' });
     }
   }
 
