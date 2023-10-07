@@ -2,41 +2,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Menu } from 'primereact/menu';
 import { Button } from 'primereact/button';
-import { goalsService } from '../../../service/goalsService';
+import { GoalsService } from '../../../service/GoalsService';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Goal, SimpleTask, ComposedTask } from '../../../types/goals';
 
 
-// Define los tipos adecuados para las estructuras de datos
-// type SimpleTask = {
-//   id: string;
-//   name: string;
-//   description: string;
-//   start_date: string;
-//   end_date: string;
-//   status: boolean;
-// };
-// import { ComposedTask } from '../../../types/goals';
 
-// type ComposedTask = {
-//   id: string;
-//   nombre: string;
-//   status: boolean;
-//   simpleTasks: SimpleTask[];
-// };
-
-// type Goal = {
-//   id: string;
-//   goalName: string;
-//   status: boolean;
-//   composedTasks: ComposedTask[];
-// };
 
 const Metas = () => {
   const [metas, setMetas] = useState<Goal[]>([]);
 
   useEffect(() => {
-    goalsService.getGoals().then(data => setMetas(data));
+    GoalsService.getGoals().then(data => setMetas(data));
   }, []);
 
 
@@ -64,8 +41,8 @@ const Metas = () => {
     menu.current?.toggle(event);
   };
 
-  const taskHeader = (gid: string | undefined, cid: string | undefined, simpleTasks: SimpleTask) => {
-    if (typeof (gid) === undefined || typeof (cid) === undefined) throw new Error("Send correct values for gid, cid")
+  const taskHeader = (goalTaskId: string | undefined, composedTaskId: string | undefined, simpleTasks: SimpleTask) => {
+    if (typeof (goalTaskId) === undefined || typeof (composedTaskId) === undefined) throw new Error("Send correct values for goalTaskId, composedTaskId")
 
     return (
       <div className='taskHeader'>
@@ -74,17 +51,17 @@ const Metas = () => {
         </span>
         <div className='taskHeaderbuttons'>
           <Button icon="pi pi-check" rounded text raised aria-label="Filter" />
-          <Button icon="pi pi-times" rounded text raised severity="danger" aria-label="Cancel" onClick={(e) => removeTask(gid, cid, simpleTasks.id, e)} />
+          <Button icon="pi pi-times" rounded text raised severity="danger" aria-label="Cancel" onClick={(e) => removeTask(goalTaskId, composedTaskId, simpleTasks.id, e)} />
         </div>
       </div>
     )
   }
 
-  const removeTask = async (gid: string | undefined, cid: string | undefined, sid: string | undefined, e: any) => {
-    if (typeof (gid) === undefined || typeof (cid) === undefined || typeof (sid) === undefined) throw new Error("Send correct values for gid, cid, sid")
+  const removeTask = async (goalTaskId: string | undefined, composedTaskId: string | undefined, SimpleTaskId: string | undefined, e: any) => {
+    if (typeof (goalTaskId) === undefined || typeof (composedTaskId) === undefined || typeof (SimpleTaskId) === undefined) throw new Error("Send correct values for goalTaskId, composedTaskId, SimpleTaskId")
     e.preventDefault()
     e.stopPropagation()
-    goalsService.deleteSimpleTask(gid, cid, sid).then(() => goalsService.getGoals().then(data => setMetas(data)))
+    GoalsService.deleteSimpleTask(goalTaskId, composedTaskId, SimpleTaskId).then(() => GoalsService.getGoals().then(data => setMetas(data)))
   }
 
   return (

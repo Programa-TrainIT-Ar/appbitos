@@ -2,7 +2,7 @@ import { ComposedTask, Goal, SimpleTask } from "../types/goals";
 
 const BASE_URL = 'http://localhost:3004'
 
-export const goalsService = {
+export const GoalsService = {
 
   getGoals: async (): Promise<Goal[]> => {
     return await fetch(`${BASE_URL}/goals`)
@@ -16,34 +16,34 @@ export const goalsService = {
     }).then(res => res.json())
   },
 
-  createComposedTask: async (gid: string, data: ComposedTask): Promise<Object> => {
-    return await fetch(`${BASE_URL}/goals/${gid}`, {
+  createComposedTask: async (goalId: string, data: ComposedTask): Promise<Object> => {
+    return await fetch(`${BASE_URL}/goals/${goalId}`, {
       method: "POST",
       body: JSON.stringify(data)
     }).then(res => res.json())
   },
 
-  createSimpleTask: async (gid: string, cid: string, data: SimpleTask): Promise<Object> => {
-    return await fetch(`${BASE_URL}/goals/${gid}/${cid}`, {
+  createSimpleTask: async (goalId: string, ComposedTaskId: string, data: SimpleTask): Promise<Object> => {
+    return await fetch(`${BASE_URL}/goals/${goalId}/${ComposedTaskId}`, {
       method: "POST",
       body: JSON.stringify(data)
     }).then(res => res.json())
   },
 
-  deleteGoal: async (gid: string): Promise<Object> => {
-    return await fetch(`${BASE_URL}/goals/${gid}`, {
+  deleteGoal: async (goalId: string): Promise<Object> => {
+    return await fetch(`${BASE_URL}/goals/${goalId}`, {
       method: "DELETE",
     }).then(res => res.json())
   },
 
-  deleteComposedTask: async (gid: string, cid: string): Promise<Object> => {
-    return await fetch(`${BASE_URL}/goals/${gid}/${cid}`, {
+  deleteComposedTask: async (goalId: string, ComposedTaskId: string): Promise<Object> => {
+    return await fetch(`${BASE_URL}/goals/${goalId}/${ComposedTaskId}`, {
       method: "DELETE",
     }).then(res => res.json())
   },
 
-  deleteSimpleTask: async (gid: string | undefined, cid: string | undefined, sid: string | undefined): Promise<Object> => {
-    return await fetch(`${BASE_URL}/goals/${gid}/${cid}/${sid}`, {
+  deleteSimpleTask: async (goalId: string | undefined, ComposedTaskId: string | undefined, SimpleTaskId: string | undefined): Promise<Object> => {
+    return await fetch(`${BASE_URL}/goals/${goalId}/${ComposedTaskId}/${SimpleTaskId}`, {
       method: "DELETE",
     }).then(res => res.json())
   }
