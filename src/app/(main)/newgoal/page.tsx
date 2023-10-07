@@ -35,8 +35,8 @@ const NewGoal = () => {
 
     if (!title || !description || !task) {
       toast.current.show({
-        severity: 'error',
-        summary: 'Error',
+        severity: 'warn',
+        summary: 'Advertencia',
         detail: 'Por favor, completa todos los campos'
       });
       return;
