@@ -7,7 +7,6 @@ import { Button } from 'primereact/button';
 import GoalServices from '../../../service/GoalService';
 import { Goal } from '../../../types/goals';
 import TaskService from '../../../service/TaskService';
-import { Task } from '../../../types/tasks';
 import { Toast } from 'primereact/toast';
 
 const NewGoal = () => {
@@ -31,6 +30,13 @@ const NewGoal = () => {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+
+
+    if (!title || !description || !task) {
+      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Por favor, completa todos los campos' });
+      return;
+    }
 
     const newGoal: Goal = { title, description, task };
 
