@@ -42,7 +42,6 @@ const Metas = () => {
   };
 
   const taskHeader = (goalTaskId: string | undefined, composedTaskId: string | undefined, simpleTasks: SimpleTask) => {
-    if (typeof (goalTaskId) === undefined || typeof (composedTaskId) === undefined) throw new Error("Send correct values for goalTaskId, composedTaskId")
 
     return (
       <div className='taskHeader'>
@@ -58,7 +57,6 @@ const Metas = () => {
   }
 
   const removeTask = async (goalTaskId: string | undefined, composedTaskId: string | undefined, SimpleTaskId: string | undefined, e: any) => {
-    if (typeof (goalTaskId) === undefined || typeof (composedTaskId) === undefined || typeof (SimpleTaskId) === undefined) throw new Error("Send correct values for goalTaskId, composedTaskId, SimpleTaskId")
     e.preventDefault()
     e.stopPropagation()
     GoalsService.deleteSimpleTask(goalTaskId, composedTaskId, SimpleTaskId).then(() => GoalsService.getGoals().then(data => setMetas(data)))
@@ -94,10 +92,10 @@ const Metas = () => {
         onClick={toggleMenu}
         style={{ width: '100%' }}
       />
-      
+
     </div>
   );
-  
+
 };
 
 export default Metas;

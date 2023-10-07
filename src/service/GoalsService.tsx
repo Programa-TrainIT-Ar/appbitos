@@ -42,7 +42,7 @@ export const GoalsService = {
     }).then(res => res.json())
   },
 
-  deleteSimpleTask: async (goalId: string | undefined, ComposedTaskId: string | undefined, SimpleTaskId: string | undefined): Promise<Object> => {
+  deleteSimpleTask: async (goalId?: string, ComposedTaskId?: string, SimpleTaskId?: string): Promise<Object> => {
     return await fetch(`${BASE_URL}/goals/${goalId}/${ComposedTaskId}/${SimpleTaskId}`, {
       method: "DELETE",
     }).then(res => res.json())
