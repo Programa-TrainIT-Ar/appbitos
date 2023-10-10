@@ -31,8 +31,6 @@ const NewGoal = () => {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-
-
     if (!title || !description || !task) {
       toast.current.show({
         severity: 'warn',
