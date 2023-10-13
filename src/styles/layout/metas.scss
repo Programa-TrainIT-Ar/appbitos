@@ -1,0 +1,16 @@
+.taskHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+
+    .taskHeaderbuttons{
+        display:flex;
+        gap: 10px;
+    }
+}
+
+.p-accordion-header-text{
+    width: 100%;
+}

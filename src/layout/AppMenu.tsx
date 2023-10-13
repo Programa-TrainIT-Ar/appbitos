@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { AppMenuItem } from '../types/types';
 
 const AppMenu = () => {
+
   const { layoutConfig } = useContext(LayoutContext);
 
 
@@ -17,7 +18,8 @@ const AppMenu = () => {
       items: [
         { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
         { label: 'Medallas', icon: 'pi pi-fw pi-flag', to: '/medals' },
-        { label: 'Detalles de Usuario', icon: 'pi pi-fw pi-user', to: '/user' }
+        { label: 'Detalles de Usuario', icon: 'pi pi-fw pi-user', to: '/user' },
+         { label: 'Metas', icon: 'pi pi-fw pi-home', to: '/metas' }
       ]
     },
 
@@ -33,6 +35,7 @@ const AppMenu = () => {
       </ul>
     </MenuProvider>
   );
+
 };
 
 export default AppMenu;
