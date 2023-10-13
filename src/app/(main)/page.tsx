@@ -1,13 +1,15 @@
-"use client";
+"use client"
 import React from "react";
 
 
-const Dashboard = () => {
+const Main = () => {
+
+
     return (
-        <div className="grid">
+        <div className="">
 
         </div>
     );
 };
 
-export default Dashboard;
+export default Main;

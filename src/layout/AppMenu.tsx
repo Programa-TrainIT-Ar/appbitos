@@ -8,25 +8,34 @@ import Link from 'next/link';
 import { AppMenuItem } from '../types/types';
 
 const AppMenu = () => {
-    const { layoutConfig } = useContext(LayoutContext);
 
-    const model: AppMenuItem[] = [
-        {
-            label: 'Home',
-            items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
-            { label: 'Metas', icon: 'pi pi-fw pi-home', to: '/metas' }]
-        },
-    ];
+  const { layoutConfig } = useContext(LayoutContext);
 
-    return (
-        <MenuProvider>
-            <ul className="layout-menu">
-                {model.map((item, i) => {
-                    return !item?.seperator ? <AppMenuitem item={item} root={true} index={i} key={item.label} /> : <li className="menu-separator"></li>;
-                })}
-            </ul>
-        </MenuProvider>
-    );
+
+  const model: AppMenuItem[] = [
+    {
+      label: 'Home',
+      items: [
+        { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
+        { label: 'Medallas', icon: 'pi pi-fw pi-flag', to: '/medals' },
+        { label: 'Detalles de Usuario', icon: 'pi pi-fw pi-user', to: '/user' },
+         { label: 'Metas', icon: 'pi pi-fw pi-home', to: '/metas' }
+      ]
+    },
+
+
+  ];
+
+  return (
+    <MenuProvider>
+      <ul className="layout-menu">
+        {model.map((item, i) => {
+          return !item?.seperator ? <AppMenuitem item={item} root={true} index={i} key={item.label} /> : <li className="menu-separator"></li>;
+        })}
+      </ul>
+    </MenuProvider>
+  );
+
 };
 
 export default AppMenu;
