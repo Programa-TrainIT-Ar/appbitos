@@ -7,6 +7,7 @@ import MedalsService from "../../../service/MedalsService";
 import { Toolbar } from "primereact/toolbar";
 import { InputSwitch } from "primereact/inputswitch";
 
+
 const MedalsPage = () => {
 
   const [showAllObtainedMedals, setShowAllObtainedMedals] = useState<any>(false)
@@ -20,6 +21,8 @@ const MedalsPage = () => {
     dificulty: 2,
     obtained: false
   })
+
+
 
   useEffect(() => {
     MedalsService.getMedals().then(setMedals)
