@@ -39,6 +39,7 @@ export const LayoutProvider = ({ children }: ChildContainerProps) => {
     };
 
     const isOverlay = () => {
+        
         return layoutConfig.menuMode === 'overlay';
     };
 
