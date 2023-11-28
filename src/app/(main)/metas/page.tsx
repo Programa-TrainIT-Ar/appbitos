@@ -70,7 +70,9 @@ const Metas = () => {
             <h2 className="m-0">Metas: {meta.name}</h2>
             <Accordion activeIndex={0}>
               {meta.composedTasks?.map(ct => (
-                <AccordionTab header={ct.name}>
+                <AccordionTab
+                key={ct.id}
+                header={ct.name}>
                   <Accordion activeIndex={0}>
                     {ct.simpleTasks?.map((task) => (
                       <AccordionTab key={task.id} header={taskHeader(meta.id, ct.id, task)}>

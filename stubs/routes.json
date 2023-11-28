@@ -1,6 +1,8 @@
 {
 
   "/medals" : "/medals",
-  "/users" : "/users"
+  "/users" : "/users",
+  "/goals": "/goals",
+  "/tasks": "/tasks"
 }
 

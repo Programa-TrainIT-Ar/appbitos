@@ -1,20 +1,20 @@
 export interface Goal {
   id?: string,
   status?: boolean,
-  name: string,
+  title: string,
   description: string,
+  task: string,
   composedTasks?: ComposedTask[]
-
+  name?: string, 
 }
 
 export interface ComposedTask {
   id?: string,
   name?: string,
   description: string,
-  status: boolean
+  status: boolean,
   simpleTasks?: SimpleTask[]
 }
-
 
 export interface SimpleTask {
   id?: string,

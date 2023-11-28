@@ -39,13 +39,13 @@ export const LayoutProvider = ({ children }: ChildContainerProps) => {
     };
 
     const isOverlay = () => {
+        
         return layoutConfig.menuMode === 'overlay';
     };
 
     const isDesktop = () => {
         return window.innerWidth > 991;
     };
-
     const value: LayoutContextProps = {
         layoutConfig,
         setLayoutConfig,

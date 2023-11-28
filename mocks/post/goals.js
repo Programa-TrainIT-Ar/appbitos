@@ -1,20 +1,31 @@
+<<<<<<< HEAD
+=======
 const { goalsFunctions } = require('../get/tasks')
 
 
+>>>>>>> master
 module.exports = [
   {
     path: '/goals',
     template: {
       response: function(params, query, body) {
         try {
+<<<<<<< HEAD
+          return { status: 200, message: "¡Has añadido una nueva meta!", goalAdded: body }
+=======
           goalsFunctions.addGoal(body)
           return { status: 200, message: "Goal Added" }
+>>>>>>> master
         } catch (error) {
           return { message: "Ha ocurrido un error", details: error.message, status: 400 }
         }
       }
     }
   },
+<<<<<<< HEAD
+]
+
+=======
   {
     path: "/goals/:gid",
     template: {
@@ -45,3 +56,4 @@ module.exports = [
   }
 
 ]
+>>>>>>> master

@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import AppMenuitem from './AppMenuitem';
 import { LayoutContext } from './context/layoutcontext';
 import { MenuProvider } from './context/menucontext';
-import Link from 'next/link';
+
 import { AppMenuItem } from '../types/types';
 
 const AppMenu = () => {
@@ -19,7 +19,10 @@ const AppMenu = () => {
         { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
         { label: 'Medallas', icon: 'pi pi-fw pi-flag', to: '/medals' },
         { label: 'Detalles de Usuario', icon: 'pi pi-fw pi-user', to: '/user' },
+        { label: 'Crear Meta', icon: 'pi pi-fw pi-flag', to: '/newgoal' },
+
          { label: 'Metas', icon: 'pi pi-fw pi-home', to: '/metas' }
+
       ]
     },
 
@@ -30,7 +33,12 @@ const AppMenu = () => {
     <MenuProvider>
       <ul className="layout-menu">
         {model.map((item, i) => {
-          return !item?.seperator ? <AppMenuitem item={item} root={true} index={i} key={item.label} /> : <li className="menu-separator"></li>;
+          return !item?.seperator ? <AppMenuitem
+            item={item}
+            root={true}
+            index={i}
+            key={item.label} /> :
+            <li className="menu-separator"></li>;
         })}
       </ul>
     </MenuProvider>

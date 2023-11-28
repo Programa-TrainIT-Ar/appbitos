@@ -34,7 +34,7 @@ export default function RootLayout({children}: RootLayoutProps) {
         <head>
             <link
                 id="theme-css"
-                href={`/themes/lara-light-indigo/theme.css`}
+                href={`/themes/viva-dark/theme.css`}
                 rel="stylesheet"
             ></link>
         </head>
