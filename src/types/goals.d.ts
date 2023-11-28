@@ -5,6 +5,7 @@ export interface Goal {
   description: string,
   task: string,
   composedTasks?: ComposedTask[]
+  name?: string, 
 }
 
 export interface ComposedTask {

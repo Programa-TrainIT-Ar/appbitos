@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 const { faker } = require("@faker-js/faker");
 
 function createRandomTasks() {
@@ -16,9 +16,8 @@ module.exports = {
     count: 5,
   })
 }
-=======
 
-const { faker } = require("@faker-js/faker");
+
 
 
 const goalsTemplate =
@@ -175,4 +174,4 @@ module.exports = {
   template: goalsTemplate,
   goalsFunctions: goalsFunctions
 };
->>>>>>> master
+
