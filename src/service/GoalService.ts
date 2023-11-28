@@ -16,4 +16,4 @@ const GoalServices = {
   }
 }
 
-export default GoalServices
+export default GoalServices;
